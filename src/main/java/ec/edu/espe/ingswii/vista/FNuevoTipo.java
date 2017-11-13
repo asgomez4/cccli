@@ -5,6 +5,8 @@
  */
 package ec.edu.espe.ingswii.vista;
 
+import ec.edu.espe.ingswii.controlador.CGrupoProductoDAO;
+
 /**
  *
  * @author Jessy
@@ -18,6 +20,10 @@ public class FNuevoTipo extends javax.swing.JFrame {
         initComponents();
         setSize(416, 336);//dar tamano fijo a la pantalla
         setLocationRelativeTo(null);//centrar la pantala 
+        CGrupoProductoDAO cc = new CGrupoProductoDAO();
+        for (int i = 0; i < cc.mostrarGrupo().size(); i++) {
+            cbGrupo.addItem(cc.mostrarGrupo().get(i).getGrupo().toString());
+        }
     }
 
     /**
@@ -68,7 +74,6 @@ public class FNuevoTipo extends javax.swing.JFrame {
         txtTipo.setBounds(150, 80, 150, 30);
 
         cbGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         pnlRegistrar.add(cbGrupo);
         cbGrupo.setBounds(150, 30, 150, 30);
 

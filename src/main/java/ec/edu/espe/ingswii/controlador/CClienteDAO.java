@@ -59,7 +59,7 @@ public class CClienteDAO {
             sentencia.setFloat(5, cliente.getFijo());
             sentencia.setFloat(6, cliente.getCelular());
             sentencia.setString(7, cliente.getDireccion());
-            sentencia.setString(7, cliente.getCorreo());
+            sentencia.setString(8, cliente.getCorreo());
             sentencia.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block

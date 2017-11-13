@@ -34,7 +34,7 @@ public class CTipoProductoDAO {
         CTipoProductoDAO dat = null;
         try {
 
-            String sql = "SELECT * FROM tipo_producto WHERE gru_nombre=" + grupo;
+            String sql = "SELECT * FROM tipo_producto WHERE gru_nombre = '" + grupo + "'";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 

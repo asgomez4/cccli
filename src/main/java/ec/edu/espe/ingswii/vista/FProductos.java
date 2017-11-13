@@ -20,14 +20,14 @@ public class FProductos extends javax.swing.JFrame {
     /**
      * Creates new form FProductos
      */
-    
     public FProductos() {
-        initComponents();        
+        initComponents();
         setSize(860, 480); //dar tamano fijo a la pantalla
         setLocationRelativeTo(null);//centrar la pantala 
-        CGrupoProductoDAO cc = new CGrupoProductoDAO();        
-        DefaultComboBoxModel modelGrupo = new DefaultComboBoxModel(cc.mostrarGrupo());
-        cbGrupo.setModel(modelGrupo);
+        CGrupoProductoDAO cc = new CGrupoProductoDAO();
+        for (int i = 0; i < cc.mostrarGrupo().size(); i++) {
+            cbGrupo.addItem(cc.mostrarGrupo().get(i).getGrupo().toString());
+        }
     }
 
     /**
@@ -394,15 +394,15 @@ public class FProductos extends javax.swing.JFrame {
     private void btnNuevoGTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGTActionPerformed
         // TODO add your handling code here:
         //seleccionar opcion radio button
-        if (rdGrupo.isSelected()==false && rdTipo.isSelected()==false){//valida sino a seleccionado alguna opcion 
-            JOptionPane.showMessageDialog(null, "SELECCIONE EL GRUPO O TIPO HA CREAR");                
-        }else{
-            if (rdGrupo.isSelected()){
+        if (rdGrupo.isSelected() == false && rdTipo.isSelected() == false) {//valida sino a seleccionado alguna opcion 
+            JOptionPane.showMessageDialog(null, "SELECCIONE EL GRUPO O TIPO HA CREAR");
+        } else {
+            if (rdGrupo.isSelected()) {
                 //this.hide();
                 FNuevoGrupo obj1 = new FNuevoGrupo();
                 obj1.show();
             }
-            if (rdTipo.isSelected()){
+            if (rdTipo.isSelected()) {
                 //this.hide();
                 FNuevoTipo obj2 = new FNuevoTipo();
                 obj2.show();
@@ -418,22 +418,23 @@ public class FProductos extends javax.swing.JFrame {
 
     private void cbGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbGrupoItemStateChanged
         // TODO add your handling code here:
+        String nombre = "";
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            CGrupoProductoDAO gru = (CGrupoProductoDAO) cbGrupo.getSelectedItem();
+            nombre = cbGrupo.getSelectedItem().toString();
             CTipoProductoDAO tip = new CTipoProductoDAO();
-            DefaultComboBoxModel modelTipo = new DefaultComboBoxModel(tip.mostrarTipo(gru.getGrupo()));
-            cbTipo.setModel(modelTipo);
+            for (int i = 0; i < tip.mostrarTipo(nombre).size(); i++) {
+                cbTipo.addItem(tip.mostrarTipo(nombre).get(i).getTipo().toString());
+            }
         }
-        
+
     }//GEN-LAST:event_cbGrupoItemStateChanged
 
     private void cbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoItemStateChanged
         // TODO add your handling code here:
-         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            CTipoProductoDAO tip = (CTipoProductoDAO) cbTipo.getSelectedItem();            
-            txtTipo.setText(tip.getTipo());            
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            txtTipo.setText(cbTipo.getSelectedItem().toString());
         }
-        
+
     }//GEN-LAST:event_cbTipoItemStateChanged
 
     /**
