@@ -16,6 +16,7 @@ public class FBProducto extends javax.swing.JFrame {
      */
     public FBProducto() {
         initComponents();
+        this.setSize(934, 460);
     }
 
     /**
