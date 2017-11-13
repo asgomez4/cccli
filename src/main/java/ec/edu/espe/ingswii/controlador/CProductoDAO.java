@@ -5,8 +5,10 @@
  */
 package ec.edu.espe.ingswii.controlador;
 import ec.edu.espe.ingswii.modelo.CProducto;
-import java.sql.ResultSet;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 /**
  *
  * @author Jessy
@@ -17,6 +19,7 @@ public class CProductoDAO {
      * pro es un objeto con los datos del producto.
      */
     private CProducto pro;
+    
     /**
      * conexion establece la conexion con la base de datos.
      */
@@ -24,13 +27,20 @@ public class CProductoDAO {
     /**
      * resultado guarda las acciones DML en la BD.
      */
-    private ResultSet resultado;
-
+    
     /**
      * contructor de la clase.
      *
      * @param pro
      */
+    
+    public CProductoDAO(final CProducto pro) {
+        this.pro = pro;
+        this.conexion = new Conexion();
+    }
+    //Validar si existe serie
+    
+
     
     
 }

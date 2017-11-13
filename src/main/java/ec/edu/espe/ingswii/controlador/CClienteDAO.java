@@ -28,6 +28,7 @@ public class CClienteDAO {
      * resultado guarda las acciones DML en la BD.
      */
     private ResultSet resultado;
+    
 
     /**
      * contructor de la clase.

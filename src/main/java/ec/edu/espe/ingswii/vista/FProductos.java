@@ -5,6 +5,10 @@
  */
 package ec.edu.espe.ingswii.vista;
 
+import ec.edu.espe.ingswii.controlador.CGrupoProductoDAO;
+import ec.edu.espe.ingswii.controlador.CTipoProductoDAO;
+import java.awt.event.ItemEvent;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,10 +20,14 @@ public class FProductos extends javax.swing.JFrame {
     /**
      * Creates new form FProductos
      */
+    
     public FProductos() {
         initComponents();        
         setSize(860, 480); //dar tamano fijo a la pantalla
         setLocationRelativeTo(null);//centrar la pantala 
+        CGrupoProductoDAO cc = new CGrupoProductoDAO();        
+        DefaultComboBoxModel modelGrupo = new DefaultComboBoxModel(cc.mostrarGrupo());
+        cbGrupo.setModel(modelGrupo);
     }
 
     /**
@@ -97,12 +105,20 @@ public class FProductos extends javax.swing.JFrame {
         lblTipo.setBounds(30, 70, 28, 15);
 
         cbGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGrupo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbGrupoItemStateChanged(evt);
+            }
+        });
         pnlProducto.add(cbGrupo);
         cbGrupo.setBounds(83, 30, 240, 28);
 
         cbTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoItemStateChanged(evt);
+            }
+        });
         pnlProducto.add(cbTipo);
         cbTipo.setBounds(83, 69, 240, 28);
 
@@ -322,7 +338,7 @@ public class FProductos extends javax.swing.JFrame {
         pnlOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Volver");
 
         btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnNuevo.setText("Nuevo");
@@ -399,6 +415,26 @@ public class FProductos extends javax.swing.JFrame {
         FGestionarProducto obj = new FGestionarProducto();
         obj.show();
     }//GEN-LAST:event_btnGestionarActionPerformed
+
+    private void cbGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbGrupoItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            CGrupoProductoDAO gru = (CGrupoProductoDAO) cbGrupo.getSelectedItem();
+            CTipoProductoDAO tip = new CTipoProductoDAO();
+            DefaultComboBoxModel modelTipo = new DefaultComboBoxModel(tip.mostrarTipo(gru.getGrupo()));
+            cbTipo.setModel(modelTipo);
+        }
+        
+    }//GEN-LAST:event_cbGrupoItemStateChanged
+
+    private void cbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoItemStateChanged
+        // TODO add your handling code here:
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+            CTipoProductoDAO tip = (CTipoProductoDAO) cbTipo.getSelectedItem();            
+            txtTipo.setText(tip.getTipo());            
+        }
+        
+    }//GEN-LAST:event_cbTipoItemStateChanged
 
     /**
      * @param args the command line arguments

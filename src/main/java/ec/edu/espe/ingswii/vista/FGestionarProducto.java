@@ -240,7 +240,7 @@ public class FGestionarProducto extends javax.swing.JFrame {
         btnNuevo.setText("Nuevo");
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Volver");
 
         javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
         pnlOpciones.setLayout(pnlOpcionesLayout);

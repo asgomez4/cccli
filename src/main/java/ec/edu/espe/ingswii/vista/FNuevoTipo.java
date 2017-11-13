@@ -39,6 +39,7 @@ public class FNuevoTipo extends javax.swing.JFrame {
         pnlOpciones = new javax.swing.JPanel();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        btnNuevo1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -83,14 +84,19 @@ public class FNuevoTipo extends javax.swing.JFrame {
         pnlOpciones.setLayout(null);
 
         btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnNuevo.setText("Nuevo");
+        btnNuevo.setText("Volver");
         pnlOpciones.add(btnNuevo);
-        btnNuevo.setBounds(60, 40, 110, 30);
+        btnNuevo.setBounds(270, 40, 110, 30);
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnGuardar.setText("Guardar");
         pnlOpciones.add(btnGuardar);
-        btnGuardar.setBounds(230, 40, 110, 30);
+        btnGuardar.setBounds(140, 40, 110, 30);
+
+        btnNuevo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnNuevo1.setText("Nuevo");
+        pnlOpciones.add(btnNuevo1);
+        btnNuevo1.setBounds(10, 40, 110, 30);
 
         getContentPane().add(pnlOpciones);
         pnlOpciones.setBounds(5, 203, 390, 90);
@@ -137,6 +143,7 @@ public class FNuevoTipo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnNuevo1;
     private javax.swing.JComboBox<String> cbGrupo;
     private javax.swing.JLabel lblGrupo;
     private javax.swing.JLabel lblGrupo1;

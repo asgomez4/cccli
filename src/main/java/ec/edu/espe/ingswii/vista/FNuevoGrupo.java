@@ -83,7 +83,7 @@ public class FNuevoGrupo extends javax.swing.JFrame {
         btnNuevo.setBounds(60, 40, 110, 30);
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGuardar.setText("Guardar");
+        btnGuardar.setText("Volver");
         pnlOpciones.add(btnGuardar);
         btnGuardar.setBounds(230, 40, 110, 30);
 
