@@ -63,6 +63,11 @@ public class FNuevoGrupo extends javax.swing.JFrame {
         lblGrupo.setBounds(80, 50, 41, 15);
 
         txtGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtGrupo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtGrupoKeyTyped(evt);
+            }
+        });
         pnlRegistrar.add(txtGrupo);
         txtGrupo.setBounds(160, 40, 150, 30);
 
@@ -103,6 +108,15 @@ public class FNuevoGrupo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtGrupoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGrupoKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if((c<'A'||c>'Z')){
+            evt.consume();
+        }
+                    
+    }//GEN-LAST:event_txtGrupoKeyTyped
 
     /**
      * @param args the command line arguments

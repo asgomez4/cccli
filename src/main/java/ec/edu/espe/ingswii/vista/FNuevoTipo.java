@@ -70,6 +70,11 @@ public class FNuevoTipo extends javax.swing.JFrame {
         lblGrupo.setBounds(70, 80, 28, 15);
 
         txtTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTipoKeyTyped(evt);
+            }
+        });
         pnlRegistrar.add(txtTipo);
         txtTipo.setBounds(150, 80, 150, 30);
 
@@ -108,6 +113,14 @@ public class FNuevoTipo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if((c<'A'||c>'Z')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTipoKeyTyped
 
     /**
      * @param args the command line arguments

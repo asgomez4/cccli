@@ -8,7 +8,6 @@ package ec.edu.espe.ingswii.vista;
 import ec.edu.espe.ingswii.controlador.CGrupoProductoDAO;
 import ec.edu.espe.ingswii.controlador.CTipoProductoDAO;
 import java.awt.event.ItemEvent;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,7 +21,7 @@ public class FProductos extends javax.swing.JFrame {
      */
     public FProductos() {
         initComponents();
-        setSize(860, 480); //dar tamano fijo a la pantalla
+        setSize(860, 490); //dar tamano fijo a la pantalla
         setLocationRelativeTo(null);//centrar la pantala 
         CGrupoProductoDAO cc = new CGrupoProductoDAO();
         for (int i = 0; i < cc.mostrarGrupo().size(); i++) {
@@ -224,6 +223,7 @@ public class FProductos extends javax.swing.JFrame {
         lblStock.setBounds(340, 220, 50, 15);
 
         txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCodigo.setEnabled(false);
         pnlDetalles.add(txtCodigo);
         txtCodigo.setBounds(90, 30, 220, 21);
 
@@ -233,6 +233,11 @@ public class FProductos extends javax.swing.JFrame {
         lblSerie.setBounds(30, 100, 50, 15);
 
         txtSerie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtSerie.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSerieKeyTyped(evt);
+            }
+        });
         pnlDetalles.add(txtSerie);
         txtSerie.setBounds(90, 100, 220, 21);
 
@@ -242,6 +247,11 @@ public class FProductos extends javax.swing.JFrame {
         lblModelo.setBounds(30, 130, 50, 15);
 
         txtModelo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtModeloKeyTyped(evt);
+            }
+        });
         pnlDetalles.add(txtModelo);
         txtModelo.setBounds(90, 130, 220, 21);
 
@@ -251,10 +261,20 @@ public class FProductos extends javax.swing.JFrame {
         lblMarca.setBounds(30, 160, 50, 15);
 
         txtMarca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyTyped(evt);
+            }
+        });
         pnlDetalles.add(txtMarca);
         txtMarca.setBounds(90, 160, 220, 21);
 
         txtPrecio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
         pnlDetalles.add(txtPrecio);
         txtPrecio.setBounds(90, 190, 220, 21);
 
@@ -269,6 +289,11 @@ public class FProductos extends javax.swing.JFrame {
         lblTipo1.setBounds(30, 220, 50, 15);
 
         txtStock.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtStockKeyTyped(evt);
+            }
+        });
         pnlDetalles.add(txtStock);
         txtStock.setBounds(390, 220, 90, 21);
 
@@ -278,6 +303,7 @@ public class FProductos extends javax.swing.JFrame {
         lblDescripcion.setBounds(340, 100, 70, 15);
 
         txtTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtTipo.setEnabled(false);
         pnlDetalles.add(txtTipo);
         txtTipo.setBounds(90, 220, 220, 21);
 
@@ -436,6 +462,51 @@ public class FProductos extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_cbTipoItemStateChanged
+
+    private void txtStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStockKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(c<'0'||c>'9'){
+            evt.consume();
+        }        
+    }//GEN-LAST:event_txtStockKeyTyped
+
+    private void txtSerieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSerieKeyTyped
+        // TODO add your handling code here:        
+        char c=evt.getKeyChar();
+        char ck=evt.getKeyChar();
+        if((c<'0'||c>'9')){
+            evt.consume();
+        }
+        if(ck<'A'||ck>'Z'){
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtSerieKeyTyped
+
+    private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if((c<'0'||c>'9')||(c<'A'||c>'Z')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtModeloKeyTyped
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if((c<'A'||c>'Z')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMarcaKeyTyped
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if((c<'0'||c>'9')||(c=='.')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrecioKeyTyped
 
     /**
      * @param args the command line arguments
