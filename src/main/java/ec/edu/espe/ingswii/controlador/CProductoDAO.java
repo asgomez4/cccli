@@ -5,10 +5,6 @@
  */
 package ec.edu.espe.ingswii.controlador;
 import ec.edu.espe.ingswii.modelo.CProducto;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 /**
  *
  * @author Jessy
