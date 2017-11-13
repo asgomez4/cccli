@@ -169,6 +169,8 @@ public class FMenu extends javax.swing.JFrame {
 
     private void btnGestionProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionProductosActionPerformed
         // TODO add your handling code here:
+        FProductos obj = new FProductos();
+        obj.setVisible(true);
     }//GEN-LAST:event_btnGestionProductosActionPerformed
 
     private void btnResgistroVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResgistroVentasActionPerformed

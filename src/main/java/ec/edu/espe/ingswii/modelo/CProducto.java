@@ -117,8 +117,5 @@ public class CProducto {
 
     public void setProStock(String proStock) {
         this.proStock = proStock;
-    }
-    
-    
-    
+    }      
 }

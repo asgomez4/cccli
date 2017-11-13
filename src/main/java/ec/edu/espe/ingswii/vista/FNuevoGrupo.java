@@ -16,6 +16,8 @@ public class FNuevoGrupo extends javax.swing.JFrame {
      */
     public FNuevoGrupo() {
         initComponents();
+        setSize(422, 360);//dar tamano fijo a la pantalla
+        setLocationRelativeTo(null);//centrar la pantala 
     }
 
     /**

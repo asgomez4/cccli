@@ -5,6 +5,8 @@
  */
 package ec.edu.espe.ingswii.vista;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jessy
@@ -15,7 +17,9 @@ public class FProductos extends javax.swing.JFrame {
      * Creates new form FProductos
      */
     public FProductos() {
-        initComponents();
+        initComponents();        
+        setSize(860, 480); //dar tamano fijo a la pantalla
+        setLocationRelativeTo(null);//centrar la pantala 
     }
 
     /**
@@ -72,6 +76,7 @@ public class FProductos extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        btnGestionar = new javax.swing.JButton();
 
         jToolBar1.setRollover(true);
 
@@ -116,6 +121,11 @@ public class FProductos extends javax.swing.JFrame {
 
         btnNuevoGT.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnNuevoGT.setText("Nuevo");
+        btnNuevoGT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoGTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCrearLayout = new javax.swing.GroupLayout(pnlCrear);
         pnlCrear.setLayout(pnlCrearLayout);
@@ -320,28 +330,43 @@ public class FProductos extends javax.swing.JFrame {
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnGuardar.setText("Guardar");
 
+        btnGestionar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGestionar.setText("Gestionar");
+        btnGestionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
         pnlOpciones.setLayout(pnlOpcionesLayout);
         pnlOpcionesLayout.setHorizontalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+            .addGroup(pnlOpcionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
+                        .addComponent(btnGestionar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         pnlOpcionesLayout.setVerticalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOpcionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnNuevo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGuardar)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGestionar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnNuevo))
+                .addGap(21, 21, 21))
         );
 
         getContentPane().add(pnlOpciones);
@@ -349,6 +374,31 @@ public class FProductos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNuevoGTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGTActionPerformed
+        // TODO add your handling code here:
+        //seleccionar opcion radio button
+        if (rdGrupo.isSelected()==false && rdTipo.isSelected()==false){//valida sino a seleccionado alguna opcion 
+            JOptionPane.showMessageDialog(null, "SELECCIONE EL GRUPO O TIPO HA CREAR");                
+        }else{
+            if (rdGrupo.isSelected()){
+                //this.hide();
+                FNuevoGrupo obj1 = new FNuevoGrupo();
+                obj1.show();
+            }
+            if (rdTipo.isSelected()){
+                //this.hide();
+                FNuevoTipo obj2 = new FNuevoTipo();
+                obj2.show();
+            }
+        }
+    }//GEN-LAST:event_btnNuevoGTActionPerformed
+
+    private void btnGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarActionPerformed
+        // TODO add your handling code here:
+        FGestionarProducto obj = new FGestionarProducto();
+        obj.show();
+    }//GEN-LAST:event_btnGestionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -388,6 +438,7 @@ public class FProductos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGenerarCodigo;
+    private javax.swing.JButton btnGestionar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnNuevoGT;
