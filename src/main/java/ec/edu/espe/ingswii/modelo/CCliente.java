@@ -14,7 +14,7 @@ public class CCliente {
     private String apellidop;
     private String apellidom;
     private String nombres;
-    private float fijo;
+    private String fijo;
     private float celular;
     private String direccion;
     private String correo;
@@ -23,8 +23,7 @@ public class CCliente {
      * @param cedula
      * @param nombre 
      */
-    public CCliente(final String cedula,final String nombres
-            ) {
+    public CCliente(final String cedula,final String nombres) {
         this.cedula = cedula;       
         this.nombres=nombres;
 //        this.apellidop= apellidop;
@@ -34,6 +33,16 @@ public class CCliente {
 //        this.direccion=direccion;
 //        this.correo=correo;
 //        final float fijo , final float celular,final String direccion,final String correo
+    }
+    
+    public CCliente(final String cedula,final String apellidop, 
+            final String apellidom,final String nombres, final String fijo, final String direccion) {
+        this.cedula = cedula;   
+        this.apellidop= apellidop;
+        this.apellidom=apellidom;            
+        this.nombres=nombres;
+        this.fijo=fijo;
+        this.direccion=direccion;
     }
     /**
      * Metodo que obtiene la cedula del cliente.
@@ -62,7 +71,7 @@ public class CCliente {
         return nombres;
     }
 
-    public float getFijo() {
+    public String getFijo() {
         return fijo;
     }
 
@@ -90,7 +99,7 @@ public class CCliente {
         this.nombres = nombres;
     }
 
-    public void setFijo(float fijo) {
+    public void setFijo(String fijo) {
         this.fijo = fijo;
     }
 

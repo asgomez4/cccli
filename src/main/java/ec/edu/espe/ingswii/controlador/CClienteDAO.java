@@ -55,7 +55,7 @@ public class CClienteDAO {
             sentencia.setString(2, cliente.getApellidop());
             sentencia.setString(3, cliente.getApellidom());
             sentencia.setString(4, cliente.getNombres());
-            sentencia.setFloat(5, cliente.getFijo());
+            sentencia.setString(5, cliente.getFijo());
             sentencia.setFloat(6, cliente.getCelular());
             sentencia.setString(7, cliente.getDireccion());
             sentencia.setString(8, cliente.getCorreo());
@@ -211,22 +211,28 @@ public class CClienteDAO {
         }
     }  
     
-    
-
-    public CCliente buscar(String cedula) {
+    public CCliente buscarV() {
         int band = 0;
         PreparedStatement sentencia = null;
         CCliente cli = null;
         final Connection con = conexion.getConnection();
         try {
-            sentencia = con.prepareStatement("select * from cliente where cli_cedula = '" + cedula + "'");
-            sentencia.setString(1, cedula);
+            sentencia = con.prepareStatement("select * from cliente where cli_cedula = ?");
+            sentencia.setString(1, cliente.getCedula());
             resultado = sentencia.executeQuery();
             if (resultado.next()) {
                 band++;
-                cli = new CCliente(resultado.getString(1), resultado.getString(4));
+                cli = new CCliente(
+                        resultado.getString(1), 
+                        resultado.getString(2),
+                        resultado.getString(3),
+                        resultado.getString(4),
+                        resultado.getString(5),
+                        resultado.getString(7));
+                if(band!=0){
+                    JOptionPane.showMessageDialog(null, "Cliente Encontrado");
+                }
             } else {
-                insert();
                 JOptionPane.showMessageDialog(null, "Cliente no encontrado");
             }
         } catch (Exception ex) {

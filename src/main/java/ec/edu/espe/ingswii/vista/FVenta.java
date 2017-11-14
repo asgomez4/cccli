@@ -5,9 +5,11 @@
  */
 package ec.edu.espe.ingswii.vista;
 
+import ec.edu.espe.ingswii.modelo.CCliente;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,7 +18,7 @@ import java.util.*;
 public class FVenta extends javax.swing.JFrame {
 
     private Calendar c;
-    int año, mes, dia;
+    int año, mes, dia; 
 
     /**
      * Creates new form FVenta
@@ -28,7 +30,6 @@ public class FVenta extends javax.swing.JFrame {
         mes = c.get(Calendar.MONTH) + 1;
         dia = c.get(Calendar.DATE);
         txtFechaVenta.setText(año + "/" + mes + "/" + dia);
-        pnlTabla.enable();
     }
 
     /**
@@ -333,6 +334,7 @@ public class FVenta extends javax.swing.JFrame {
     private void btnLllenarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLllenarDatosActionPerformed
         // TODO add your handling code here:
         FBuscarCliente obj = new FBuscarCliente();
+        obj.setObj(this);
         obj.show();
     }//GEN-LAST:event_btnLllenarDatosActionPerformed
 
@@ -393,13 +395,13 @@ public class FVenta extends javax.swing.JFrame {
     private javax.swing.JPanel pnlDatosCliente;
     private javax.swing.JPanel pnlTabla;
     private javax.swing.JTable tblProdVentas;
-    private javax.swing.JTextField txtCIVenta;
-    private javax.swing.JTextField txtClienteVenta;
-    private javax.swing.JTextField txtDirVenta;
-    private javax.swing.JTextField txtFechaVenta;
+    public javax.swing.JTextField txtCIVenta;
+    public javax.swing.JTextField txtClienteVenta;
+    public javax.swing.JTextField txtDirVenta;
+    public javax.swing.JTextField txtFechaVenta;
     private javax.swing.JTextField txtIva;
     private javax.swing.JTextField txtSubTotal;
-    private javax.swing.JTextField txtTelfVenta;
+    public javax.swing.JTextField txtTelfVenta;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }

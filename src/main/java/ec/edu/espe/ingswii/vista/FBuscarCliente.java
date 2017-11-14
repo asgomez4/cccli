@@ -5,12 +5,25 @@
  */
 package ec.edu.espe.ingswii.vista;
 
+import ec.edu.espe.ingswii.controlador.CClienteDAO;
+import ec.edu.espe.ingswii.modelo.CCliente;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Sofia Gomez
  */
 public class FBuscarCliente extends javax.swing.JFrame {
+    CCliente nuevo;
+    FVenta objVenta = new FVenta();
 
+    public FVenta getObj() {
+        return objVenta;
+    }
+
+    public void setObj(FVenta obj) {
+        this.objVenta = obj;
+    }
     /**
      * Creates new form FBuscarCliente
      */
@@ -98,6 +111,16 @@ public class FBuscarCliente extends javax.swing.JFrame {
     private void btnCliBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliBusActionPerformed
         // TODO add your handling code here:
         String cedula = txtCeBC.getText();
+        nuevo = new CCliente(cedula,null);
+        CClienteDAO obj = new CClienteDAO(nuevo);
+        nuevo = obj.buscarV();
+        objVenta.txtClienteVenta.setText(nuevo.getApellidop()+ " " + nuevo.getApellidom() 
+                + " " + nuevo.getNombres());
+        objVenta.txtCIVenta.setText(nuevo.getCedula());
+        objVenta.txtDirVenta.setText(nuevo.getDireccion());
+        objVenta.txtTelfVenta.setText(nuevo.getFijo());
+        this.hide();
+        
     }//GEN-LAST:event_btnCliBusActionPerformed
 
     /**
