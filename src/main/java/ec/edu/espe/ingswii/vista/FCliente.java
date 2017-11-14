@@ -354,7 +354,7 @@ public class FCliente extends javax.swing.JFrame {
                         cedula1 = Integer.toString(cedula);
                         nombre = txtnombre.getText();
                         clienteDAO = new CClienteDAO(new CCliente(cedula1, nombre));
-                        clienteDAO.buscar();
+                        clienteDAO.insert();
                         limpiarDatos();
                     } else {
                         JOptionPane.showMessageDialog(frame, "La cédula ingresada es incorrecta");
