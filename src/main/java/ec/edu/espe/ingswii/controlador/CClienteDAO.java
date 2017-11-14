@@ -28,7 +28,6 @@ public class CClienteDAO {
      * resultado guarda las acciones DML en la BD.
      */
     private ResultSet resultado;
-    
 
     /**
      * contructor de la clase.
@@ -141,11 +140,6 @@ public class CClienteDAO {
             int cont = 0;
             while (res.next()) {
                 cont++;
-//                cliente = new CCliente(res.getString(1), res.getString(2), res.getString(3), res.getString(4),
-//                res.getFloat(5),res.getFloat(6),res.getString(7),res.getString(8));
-//                tablaClientes.addRow(new String[]{"" + cont, cliente.getCedula(),cliente.getApellidop(),cliente.getApellidom(),
-//                    cliente.getNombres(),cliente.getDireccion(),cliente.getCorreo()});
-
                 cliente = new CCliente(res.getString(1), res.getString(4));
                 tablaClientes.addRow(new String[]{"" + cont, cliente.getCedula(), cliente.getNombres()});
             }
@@ -215,5 +209,29 @@ public class CClienteDAO {
             }
         } catch (Exception ex) {
         }
+    }  
+    
+    
+
+    public CCliente buscar(String cedula) {
+        int band = 0;
+        PreparedStatement sentencia = null;
+        CCliente cli = null;
+        final Connection con = conexion.getConnection();
+        try {
+            sentencia = con.prepareStatement("select * from cliente where cli_cedula = '" + cedula + "'");
+            sentencia.setString(1, cedula);
+            resultado = sentencia.executeQuery();
+            if (resultado.next()) {
+                band++;
+                cli = new CCliente(resultado.getString(1), resultado.getString(4));
+            } else {
+                insert();
+                JOptionPane.showMessageDialog(null, "Cliente no encontrado");
+            }
+        } catch (Exception ex) {
+            
+        }
+        return cli;
     }
 }
