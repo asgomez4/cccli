@@ -28,6 +28,7 @@ public class FBuscarCliente extends javax.swing.JFrame {
      * Creates new form FBuscarCliente
      */
     public FBuscarCliente() {
+        setLocationRelativeTo(null);//centrar la pantala 
         initComponents();
     }
 

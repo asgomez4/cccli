@@ -5,7 +5,6 @@
  */
 package ec.edu.espe.ingswii.controlador;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,17 +16,20 @@ import java.util.Vector;
  * @author Jessy
  */
 public class CGrupoProductoDAO {
+
     private String grupo;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Conexion conn = new Conexion();
     Connection con = conn.getConnection();
-    public CGrupoProductoDAO(){  
+
+    public CGrupoProductoDAO() {
     }
+
     public CGrupoProductoDAO(String grupo) {
         this.grupo = grupo;
     }
-    
+
     public Vector<CGrupoProductoDAO> mostrarGrupo() {
         Vector<CGrupoProductoDAO> datos = new Vector<CGrupoProductoDAO>();
         CGrupoProductoDAO dat = null;
@@ -52,24 +54,25 @@ public class CGrupoProductoDAO {
         }
         return datos;
     }
-    public int insetarGrupo(String grupo){
+
+    public int insetarGrupo(String grupo) {
         int resultado = 0;
-        String sql="INSERT INTO grupo_producto(gru_nombre) values (?)";
-        try{
+        String sql = "INSERT INTO grupo_producto(gru_nombre) values (?)";
+        try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, grupo);           
-            resultado = ps.executeUpdate(); 
-        }catch (SQLException ex) {
+            ps.setString(1, grupo);
+            resultado = ps.executeUpdate();
+        } catch (SQLException ex) {
             System.err.println("Error consulta :" + ex.getMessage());
-        }finally{
-            try {            
-                if(con!=null){            
-                    con.close();                
-                }            
-            }catch (SQLException ex) {      
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
             }
         }
-        return resultado;        
+        return resultado;
     }
 
     public String getGrupo() {
@@ -79,7 +82,5 @@ public class CGrupoProductoDAO {
     public void setGrupo(String grupo) {
         this.grupo = grupo;
     }
-    
-    
-    
+
 }

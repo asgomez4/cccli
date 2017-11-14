@@ -25,6 +25,7 @@ public class FVenta extends javax.swing.JFrame {
      */
     public FVenta() {
         initComponents();
+        setLocationRelativeTo(null);//centrar la pantala 
         c = Calendar.getInstance();
         año = c.get(Calendar.YEAR);
         mes = c.get(Calendar.MONTH) + 1;
@@ -140,13 +141,18 @@ public class FVenta extends javax.swing.JFrame {
             }
         });
         pnlDatosCliente.add(btnLllenarDatos);
-        btnLllenarDatos.setBounds(550, 40, 130, 50);
+        btnLllenarDatos.setBounds(550, 40, 120, 50);
 
         pnlTabla.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
 
         btnMasPro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnMasPro.setForeground(new java.awt.Color(0, 102, 0));
         btnMasPro.setText("+");
+        btnMasPro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasProActionPerformed(evt);
+            }
+        });
 
         btnMenPro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnMenPro.setForeground(new java.awt.Color(255, 0, 0));
@@ -337,6 +343,12 @@ public class FVenta extends javax.swing.JFrame {
         obj.setObj(this);
         obj.show();
     }//GEN-LAST:event_btnLllenarDatosActionPerformed
+
+    private void btnMasProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasProActionPerformed
+        // TODO add your handling code here:
+        FBuscarProducto prod = new FBuscarProducto();
+        prod.setVisible(true);
+    }//GEN-LAST:event_btnMasProActionPerformed
 
     /**
      * @param args the command line arguments
