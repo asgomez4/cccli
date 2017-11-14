@@ -15,6 +15,7 @@ import java.awt.event.ItemEvent;
  * @author Sofia Gomez
  */
 public class FBuscarProducto extends javax.swing.JFrame {
+
     FVenta nuevaVenta;
 
     public FVenta getNuevaVenta() {
@@ -24,6 +25,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
     public void setNuevaVenta(FVenta nuevaVenta) {
         this.nuevaVenta = nuevaVenta;
     }
+
     /**
      * Creates new form FBuscarProducto
      */
@@ -87,6 +89,11 @@ public class FBuscarProducto extends javax.swing.JFrame {
 
         jcbDescV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcbDescV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbDescV.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbDescVItemStateChanged(evt);
+            }
+        });
 
         jcbCantV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcbCantV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -188,7 +195,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
 
     private void btnAñadirVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirVActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnAñadirVActionPerformed
 
     private void jcbTipoVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTipoVItemStateChanged
@@ -206,6 +213,20 @@ public class FBuscarProducto extends javax.swing.JFrame {
     private void jcbCantVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCantVItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbCantVItemStateChanged
+
+    private void jcbDescVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbDescVItemStateChanged
+        // TODO add your handling code here:
+        String subtipo;
+        String descripcion;
+        CProductoDAO tip = new CProductoDAO();
+        int cantidadPro = 0;
+        descripcion = jcbDescV.getSelectedItem().toString();
+        subtipo = jcbTipoV.getSelectedItem().toString();
+        cantidadPro = tip.Cantidad_Productos_Stock(subtipo, descripcion);
+        for (int i = 1; i <= cantidadPro; i++) {
+             jcbCantV.addItem(String.valueOf(i));
+        }
+    }//GEN-LAST:event_jcbDescVItemStateChanged
 
     /**
      * @param args the command line arguments

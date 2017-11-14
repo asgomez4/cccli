@@ -109,16 +109,6 @@ public class CProductoDAO {
             String sql = "SELECT PRO_DESCRIPCION FROM producto WHERE TIP_NOMBRE='" + subtipo + "' and pro_stock<>0;";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {
-                pProducto.setProTipo(rs.getString(0));
-            }
-        } catch (Exception ex) {
-            System.err.println("Error consulta :" + ex.getMessage());
-        }
-        try {
-            String sql = "SELECT PRO_DESCRIPCION FROM producto WHERE TIP_NOMBRE='" + subtipo + "' and pro_stock<>0;";
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
 
             pProducto = new CProducto();
             pProducto.setProDescripcion("Descripciones");
@@ -134,5 +124,22 @@ public class CProductoDAO {
             System.err.println("Error consulta :" + ex.getMessage());
         }
         return datos;
+    }
+
+    public int Cantidad_Productos_Stock(String subtipo, String descripcion) {
+        int band1 = 0;
+        CProducto pProducto = new CProducto();
+        try {
+            String sql = "select pro_stock from producto where TIP_NOMBRE='" + subtipo + "' and pro_descripcion='" + descripcion + "';";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                band1 = rs.getInt(0);
+            }
+            rs.close();
+        } catch (Exception ex) {
+            System.err.println("Error consulta :" + ex.getMessage());
+        }
+        return band1;
     }
 }
