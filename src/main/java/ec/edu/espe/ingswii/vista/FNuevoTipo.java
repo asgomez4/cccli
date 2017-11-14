@@ -6,6 +6,8 @@
 package ec.edu.espe.ingswii.vista;
 
 import ec.edu.espe.ingswii.controlador.CGrupoProductoDAO;
+import ec.edu.espe.ingswii.controlador.CTipoProductoDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,6 +18,7 @@ public class FNuevoTipo extends javax.swing.JFrame {
     /**
      * Creates new form JNuevoTipo
      */
+    CTipoProductoDAO tip=new CTipoProductoDAO();
     public FNuevoTipo() {
         initComponents();
         setSize(416, 336);//dar tamano fijo a la pantalla
@@ -100,6 +103,11 @@ public class FNuevoTipo extends javax.swing.JFrame {
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
         pnlOpciones.add(btnGuardar);
         btnGuardar.setBounds(140, 40, 110, 30);
 
@@ -121,6 +129,17 @@ public class FNuevoTipo extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtTipoKeyTyped
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        String cadena = cbGrupo.getSelectedItem().toString();
+        int exito =  tip.insetarTipo(cadena,txtTipo.getText());
+        if(exito>0){
+            JOptionPane.showMessageDialog(null,"TIPO GUARDADO","ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null,"INTENTALO NUEVAMENTE", "ERROR", JOptionPane.ERROR_MESSAGE); 
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -18,19 +18,17 @@ import java.util.Vector;
  */
 public class CGrupoProductoDAO {
     private String grupo;
-    public CGrupoProductoDAO(){   
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Conexion conn = new Conexion();
+    Connection con = conn.getConnection();
+    public CGrupoProductoDAO(){  
     }
     public CGrupoProductoDAO(String grupo) {
         this.grupo = grupo;
     }
     
     public Vector<CGrupoProductoDAO> mostrarGrupo() {
-
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Conexion conn = new Conexion();
-        Connection con = conn.getConnection();
-
         Vector<CGrupoProductoDAO> datos = new Vector<CGrupoProductoDAO>();
         CGrupoProductoDAO dat = null;
         try {
@@ -53,6 +51,25 @@ public class CGrupoProductoDAO {
             System.err.println("Error consulta :" + ex.getMessage());
         }
         return datos;
+    }
+    public int insetarGrupo(String grupo){
+        int resultado = 0;
+        String sql="INSERT INTO grupo_producto(gru_nombre) values (?)";
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, grupo);           
+            resultado = ps.executeUpdate(); 
+        }catch (SQLException ex) {
+            System.err.println("Error consulta :" + ex.getMessage());
+        }finally{
+            try {            
+                if(con!=null){            
+                    con.close();                
+                }            
+            }catch (SQLException ex) {      
+            }
+        }
+        return resultado;        
     }
 
     public String getGrupo() {
