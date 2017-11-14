@@ -347,6 +347,7 @@ public class FVenta extends javax.swing.JFrame {
     private void btnMasProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasProActionPerformed
         // TODO add your handling code here:
         FBuscarProducto prod = new FBuscarProducto();
+        prod.setNuevaVenta(this);
         prod.setVisible(true);
     }//GEN-LAST:event_btnMasProActionPerformed
 
@@ -406,7 +407,7 @@ public class FVenta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlDatosCliente;
     private javax.swing.JPanel pnlTabla;
-    private javax.swing.JTable tblProdVentas;
+    public javax.swing.JTable tblProdVentas;
     public javax.swing.JTextField txtCIVenta;
     public javax.swing.JTextField txtClienteVenta;
     public javax.swing.JTextField txtDirVenta;

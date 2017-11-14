@@ -6,6 +6,7 @@
 package ec.edu.espe.ingswii.vista;
 
 import ec.edu.espe.ingswii.controlador.CGrupoProductoDAO;
+import ec.edu.espe.ingswii.controlador.CProductoDAO;
 import ec.edu.espe.ingswii.controlador.CTipoProductoDAO;
 import java.awt.event.ItemEvent;
 
@@ -14,7 +15,15 @@ import java.awt.event.ItemEvent;
  * @author Sofia Gomez
  */
 public class FBuscarProducto extends javax.swing.JFrame {
+    FVenta nuevaVenta;
 
+    public FVenta getNuevaVenta() {
+        return nuevaVenta;
+    }
+
+    public void setNuevaVenta(FVenta nuevaVenta) {
+        this.nuevaVenta = nuevaVenta;
+    }
     /**
      * Creates new form FBuscarProducto
      */
@@ -70,15 +79,30 @@ public class FBuscarProducto extends javax.swing.JFrame {
 
         jcbTipoV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcbTipoV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbTipoV.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbTipoVItemStateChanged(evt);
+            }
+        });
 
         jcbDescV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcbDescV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jcbCantV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jcbCantV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCantV.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbCantVItemStateChanged(evt);
+            }
+        });
 
         btnAñadirV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAñadirV.setText("Añadir");
+        btnAñadirV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAñadirVActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,6 +185,27 @@ public class FBuscarProducto extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jcbGrupoVItemStateChanged
+
+    private void btnAñadirVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirVActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnAñadirVActionPerformed
+
+    private void jcbTipoVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTipoVItemStateChanged
+        // TODO add your handling code here:
+        String nombre = "";
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            nombre = jcbTipoV.getSelectedItem().toString();
+            CProductoDAO tip = new CProductoDAO();
+            for (int i = 0; i < tip.Descripcion(nombre).size(); i++) {
+                jcbTipoV.addItem(tip.Descripcion(nombre).get(i).getProDescripcion().toString());
+            }
+        }
+    }//GEN-LAST:event_jcbTipoVItemStateChanged
+
+    private void jcbCantVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCantVItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbCantVItemStateChanged
 
     /**
      * @param args the command line arguments
