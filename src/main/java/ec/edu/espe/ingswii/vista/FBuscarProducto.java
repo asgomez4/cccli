@@ -200,14 +200,14 @@ public class FBuscarProducto extends javax.swing.JFrame {
 
     private void jcbTipoVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTipoVItemStateChanged
         // TODO add your handling code here:
-        String nombre = "";
+        /*String nombre = "";
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             nombre = jcbTipoV.getSelectedItem().toString();
             CProductoDAO tip = new CProductoDAO();
             for (int i = 0; i < tip.Descripcion(nombre).size(); i++) {
                 jcbTipoV.addItem(tip.Descripcion(nombre).get(i).getProDescripcion().toString());
             }
-        }
+        }*/
     }//GEN-LAST:event_jcbTipoVItemStateChanged
 
     private void jcbCantVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCantVItemStateChanged
@@ -216,7 +216,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
 
     private void jcbDescVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbDescVItemStateChanged
         // TODO add your handling code here:
-        String subtipo;
+        /*String subtipo;
         String descripcion;
         CProductoDAO tip = new CProductoDAO();
         int cantidadPro = 0;
@@ -225,7 +225,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
         cantidadPro = tip.Cantidad_Productos_Stock(subtipo, descripcion);
         for (int i = 1; i <= cantidadPro; i++) {
              jcbCantV.addItem(String.valueOf(i));
-        }
+        }*/
     }//GEN-LAST:event_jcbDescVItemStateChanged
 
     /**

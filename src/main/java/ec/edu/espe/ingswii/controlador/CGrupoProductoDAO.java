@@ -18,26 +18,29 @@ import java.util.Vector;
 public class CGrupoProductoDAO {
 
     private String grupo;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    Conexion conn = new Conexion();
-    Connection con = conn.getConnection();
+    private PreparedStatement ps;
+    private ResultSet rs;
+    private Conexion conn;
 
     public CGrupoProductoDAO() {
+        this.conn = new Conexion();
     }
 
     public CGrupoProductoDAO(String grupo) {
         this.grupo = grupo;
+        this.conn = new Conexion();
     }
 
     public Vector<CGrupoProductoDAO> mostrarGrupo() {
         Vector<CGrupoProductoDAO> datos = new Vector<CGrupoProductoDAO>();
         CGrupoProductoDAO dat = null;
+        ps = null;
+        Connection con = conn.getConnection();
         try {
 
             String sql = "SELECT * FROM grupo_producto";
             ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
             dat = new CGrupoProductoDAO();
             dat.setGrupo("Selecciona grupo");
@@ -57,6 +60,8 @@ public class CGrupoProductoDAO {
 
     public int insetarGrupo(String grupo) {
         int resultado = 0;
+        ps = null;
+        Connection con = conn.getConnection();
         String sql = "INSERT INTO grupo_producto(gru_nombre) values (?)";
         try {
             ps = con.prepareStatement(sql);

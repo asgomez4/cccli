@@ -101,45 +101,5 @@ public class CProductoDAO {
         return resultado;
     }
 
-    //Validar si existe serie
-    public Vector<CProducto> Descripcion(String subtipo) {
-        Vector<CProducto> datos = new Vector<CProducto>();
-        CProducto pProducto = null;
-        try {
-            String sql = "SELECT PRO_DESCRIPCION FROM producto WHERE TIP_NOMBRE='" + subtipo + "' and pro_stock<>0;";
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-
-            pProducto = new CProducto();
-            pProducto.setProDescripcion("Descripciones");
-            datos.add(pProducto);
-
-            while (rs.next()) {
-                pProducto = new CProducto();
-                pProducto.setProDescripcion(rs.getString("pro_descripcion"));
-                datos.add(pProducto);
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            System.err.println("Error consulta :" + ex.getMessage());
-        }
-        return datos;
-    }
-
-    public int Cantidad_Productos_Stock(String subtipo, String descripcion) {
-        int band1 = 0;
-        CProducto pProducto = new CProducto();
-        try {
-            String sql = "select pro_stock from producto where TIP_NOMBRE='" + subtipo + "' and pro_descripcion='" + descripcion + "';";
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                band1 = rs.getInt(0);
-            }
-            rs.close();
-        } catch (Exception ex) {
-            System.err.println("Error consulta :" + ex.getMessage());
-        }
-        return band1;
-    }
+    //Validar si existe serie    
 }
