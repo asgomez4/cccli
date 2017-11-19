@@ -502,12 +502,12 @@ public class FProductos extends javax.swing.JFrame {
 
     private void cbGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbGrupoItemStateChanged
         // TODO add your handling code here:
-        String nombre = "";
-        cbTipo.setSelectedIndex(0);  
+        String nombre = ""; 
+        cbTipo.removeAllItems(); 
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             nombre = cbGrupo.getSelectedItem().toString();
             CTipoProductoDAO tip = new CTipoProductoDAO();
-            for (int i = 0; i < tip.mostrarTipo(nombre).size(); i++) {
+            for (int i = 0; i < tip.mostrarTipo(nombre).size(); i++) {                
                 cbTipo.addItem(tip.mostrarTipo(nombre).get(i).getTipo().toString());
             }
         }
