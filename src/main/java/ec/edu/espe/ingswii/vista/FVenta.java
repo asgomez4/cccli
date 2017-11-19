@@ -5,11 +5,8 @@
  */
 package ec.edu.espe.ingswii.vista;
 
-import ec.edu.espe.ingswii.modelo.CCliente;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,14 +15,14 @@ import javax.swing.JTextField;
 public class FVenta extends javax.swing.JFrame {
 
     private Calendar c;
-    int año, mes, dia; 
+    int año, mes, dia;
 
     /**
      * Creates new form FVenta
      */
     public FVenta() {
         initComponents();
-        setLocationRelativeTo(null);//centrar la pantala 
+        setLocationRelativeTo(null);//centrar la pantalla 
         c = Calendar.getInstance();
         año = c.get(Calendar.YEAR);
         mes = c.get(Calendar.MONTH) + 1;
@@ -74,7 +71,7 @@ public class FVenta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pnlDatosCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        pnlDatosCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         pnlDatosCliente.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -132,18 +129,18 @@ public class FVenta extends javax.swing.JFrame {
         pnlDatosCliente.add(txtTelfVenta);
         txtTelfVenta.setBounds(350, 60, 192, 21);
 
-        btnLllenarDatos.setBackground(new java.awt.Color(0, 153, 153));
+        btnLllenarDatos.setBackground(new java.awt.Color(204, 204, 255));
         btnLllenarDatos.setText("Llenar datos del Cliente");
-        btnLllenarDatos.setBorder(new javax.swing.border.MatteBorder(null));
+        btnLllenarDatos.setBorder(null);
         btnLllenarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLllenarDatosActionPerformed(evt);
             }
         });
         pnlDatosCliente.add(btnLllenarDatos);
-        btnLllenarDatos.setBounds(550, 40, 120, 50);
+        btnLllenarDatos.setBounds(550, 40, 130, 50);
 
-        pnlTabla.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 153, 153)));
+        pnlTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btnMasPro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnMasPro.setForeground(new java.awt.Color(0, 102, 0));
@@ -157,26 +154,23 @@ public class FVenta extends javax.swing.JFrame {
         btnMenPro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnMenPro.setForeground(new java.awt.Color(255, 0, 0));
         btnMenPro.setText("-");
+        btnMenPro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenProActionPerformed(evt);
+            }
+        });
 
         tblProdVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Código", "Cantidad", "Descripción", "Precio Unit.", "Total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jScrollPane1.setViewportView(tblProdVentas);
 
         javax.swing.GroupLayout pnlTablaLayout = new javax.swing.GroupLayout(pnlTabla);
@@ -205,6 +199,8 @@ public class FVenta extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cálculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Subtotal:");
@@ -247,7 +243,7 @@ public class FVenta extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addComponent(jLabel7)
                 .addGap(16, 16, 16)
                 .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,6 +257,8 @@ public class FVenta extends javax.swing.JFrame {
                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btnVGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVGuardar.setText("Guardar");
@@ -325,8 +323,8 @@ public class FVenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -350,6 +348,12 @@ public class FVenta extends javax.swing.JFrame {
         prod.setNuevaVenta(this);
         prod.setVisible(true);
     }//GEN-LAST:event_btnMasProActionPerformed
+
+    private void btnMenProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenProActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tblProdVentas.getModel();  
+        dtm.removeRow(tblProdVentas.getSelectedRow());
+    }//GEN-LAST:event_btnMenProActionPerformed
 
     /**
      * @param args the command line arguments
@@ -412,9 +416,9 @@ public class FVenta extends javax.swing.JFrame {
     public javax.swing.JTextField txtClienteVenta;
     public javax.swing.JTextField txtDirVenta;
     public javax.swing.JTextField txtFechaVenta;
-    private javax.swing.JTextField txtIva;
-    private javax.swing.JTextField txtSubTotal;
+    public javax.swing.JTextField txtIva;
+    public javax.swing.JTextField txtSubTotal;
     public javax.swing.JTextField txtTelfVenta;
-    private javax.swing.JTextField txtTotal;
+    public javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }

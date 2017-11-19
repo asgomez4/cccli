@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -49,13 +51,12 @@ public class CVentaDAO {
 
     public int Cantidad_Productos_Stock(String subtipo, String descripcion) {
         int band1 = 0;
-        CProducto pProducto = new CProducto();
         try {
             String sql = "select pro_stock from producto where TIP_NOMBRE='" + subtipo + "' and pro_descripcion='" + descripcion + "';";
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                band1 = rs.getInt(0);
+                band1 += rs.getInt(1);
             }
             rs.close();
         } catch (Exception ex) {
@@ -63,4 +64,58 @@ public class CVentaDAO {
         }
         return band1;
     }
+
+    public float Precio_Producto(String subtipo, String descripcion) {
+        float band1 = 0;
+        try {
+            String sql = "select ROUND(AVG(pro_precio),2) from producto where TIP_NOMBRE='" + subtipo + "' and pro_descripcion='" + descripcion + "';";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                band1 = rs.getFloat(1);
+            }
+            rs.close();
+        } catch (Exception ex) {
+            System.err.println("Error consulta :" + ex.getMessage());
+        }
+        return band1;
+    }
+
+    public DefaultTableModel visualisarProductos(DefaultTableModel tablaProd,
+            String cantidad, String desc, String pUni, String tot) {
+        tablaProd.addRow(new String[]{cantidad, desc, pUni, tot});
+        return tablaProd;
+    }
+
+    public int obtenerCodigo(String tipo, String descripcion) {
+        int codigo = 0;
+        try {
+            String sql = "select pro_codigo from producto where tip_nombre='" + tipo + "' and PRO_DESCRIPCION='" + descripcion + "';";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                codigo = rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception ex) {
+           System.err.println("Error consulta :" + ex.getMessage());
+        }
+        return codigo;
+    }
+
+    public int actualizarStock(String tipo, String descripcion, String cantidad) {
+        int aux = 0;
+        int codigo = 0;
+        codigo = obtenerCodigo(tipo, descripcion);
+        try {
+            String sql = "Update producto set pro_stock='" + cantidad + " ' where pro_codigo='" + codigo + "';";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs.close();
+        } catch (Exception ex) {
+             System.err.println("Error consulta :" + ex.getMessage());
+        }
+        return aux;
+    }
+
 }

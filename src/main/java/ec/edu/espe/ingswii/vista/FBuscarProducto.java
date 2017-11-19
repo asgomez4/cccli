@@ -6,9 +6,11 @@
 package ec.edu.espe.ingswii.vista;
 
 import ec.edu.espe.ingswii.controlador.CGrupoProductoDAO;
-import ec.edu.espe.ingswii.controlador.CProductoDAO;
 import ec.edu.espe.ingswii.controlador.CTipoProductoDAO;
+import ec.edu.espe.ingswii.controlador.CVentaDAO;
 import java.awt.event.ItemEvent;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,7 +18,12 @@ import java.awt.event.ItemEvent;
  */
 public class FBuscarProducto extends javax.swing.JFrame {
 
+    DefaultTableModel modelo;
     FVenta nuevaVenta;
+    float precioUni;
+    float precioTotal;
+    float subTotal;
+    float total;
 
     public FVenta getNuevaVenta() {
         return nuevaVenta;
@@ -31,10 +38,19 @@ public class FBuscarProducto extends javax.swing.JFrame {
      */
     public FBuscarProducto() {
         initComponents();
+        subTotal = 0;
+        total = 0;
+        setLocationRelativeTo(null);//centrar la pantalla 
+        modelo = new DefaultTableModel();
         CGrupoProductoDAO cc = new CGrupoProductoDAO();
+        jcbGrupoV.removeAllItems();
         for (int i = 0; i < cc.mostrarGrupo().size(); i++) {
             jcbGrupoV.addItem(cc.mostrarGrupo().get(i).getGrupo().toString());
-        }
+        }        
+        modelo.addColumn("Cant.");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Precio Unit.");
+        modelo.addColumn("Total");
     }
 
     /**
@@ -56,6 +72,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
         jcbDescV = new javax.swing.JComboBox<>();
         jcbCantV = new javax.swing.JComboBox<>();
         btnAñadirV = new javax.swing.JButton();
+        btnVolverV = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +89,6 @@ public class FBuscarProducto extends javax.swing.JFrame {
         jLabel4.setText("Cantidad:");
 
         jcbGrupoV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcbGrupoV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbGrupoV.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbGrupoVItemStateChanged(evt);
@@ -80,7 +96,6 @@ public class FBuscarProducto extends javax.swing.JFrame {
         });
 
         jcbTipoV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcbTipoV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbTipoV.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbTipoVItemStateChanged(evt);
@@ -88,7 +103,6 @@ public class FBuscarProducto extends javax.swing.JFrame {
         });
 
         jcbDescV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcbDescV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbDescV.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbDescVItemStateChanged(evt);
@@ -96,7 +110,6 @@ public class FBuscarProducto extends javax.swing.JFrame {
         });
 
         jcbCantV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcbCantV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbCantV.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbCantVItemStateChanged(evt);
@@ -111,36 +124,45 @@ public class FBuscarProducto extends javax.swing.JFrame {
             }
         });
 
+        btnVolverV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnVolverV.setText("Volver");
+        btnVolverV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverVActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(jcbDescV, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(47, 47, 47)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
+                                .addComponent(jcbTipoV, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jcbGrupoV, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jcbCantV, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jcbDescV, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(47, 47, 47)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jcbTipoV, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jcbGrupoV, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jcbCantV, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(btnAñadirV)))
+                                        .addComponent(btnAñadirV)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnVolverV)
+                                        .addGap(32, 32, 32)))))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -163,7 +185,9 @@ public class FBuscarProducto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jcbCantV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(btnAñadirV)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAñadirV)
+                    .addComponent(btnVolverV))
                 .addContainerGap())
         );
 
@@ -184,6 +208,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
     private void jcbGrupoVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbGrupoVItemStateChanged
         // TODO add your handling code here:
         String nombre = "";
+        jcbTipoV.removeAllItems();
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             nombre = jcbGrupoV.getSelectedItem().toString();
             CTipoProductoDAO tip = new CTipoProductoDAO();
@@ -195,19 +220,41 @@ public class FBuscarProducto extends javax.swing.JFrame {
 
     private void btnAñadirVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirVActionPerformed
         // TODO add your handling code here:
-
+        listado(modelo);
     }//GEN-LAST:event_btnAñadirVActionPerformed
 
+    /**
+     * Metodo que muetra datos de los productos.
+     */
+    protected final void listado(DefaultTableModel modelo) {
+        String vacio = "";        
+        CVentaDAO venta = new CVentaDAO();
+        try {
+            precioTotal = precioUni * Float.parseFloat(jcbCantV.getSelectedItem().toString());
+            nuevaVenta.tblProdVentas.setModel(modelo);
+            nuevaVenta.tblProdVentas.setModel(venta.visualisarProductos((modelo),
+                     jcbCantV.getSelectedItem().toString(), jcbDescV.getSelectedItem().toString(),
+                     String.valueOf(precioUni), String.valueOf(precioTotal)));
+            subTotal += precioTotal;
+            total = (float)(subTotal + (subTotal * 0.12));
+            nuevaVenta.txtSubTotal.setText(String.valueOf(subTotal));
+            nuevaVenta.txtIva.setText(String.valueOf((double)Math.round((subTotal * 0.12) * 100d) / 100d));
+            nuevaVenta.txtTotal.setText(String.valueOf(total));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error");
+            ex.printStackTrace();
+        }
+    }
     private void jcbTipoVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTipoVItemStateChanged
         // TODO add your handling code here:
-        /*String nombre = "";
+        String nombre = "";
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             nombre = jcbTipoV.getSelectedItem().toString();
-            CProductoDAO tip = new CProductoDAO();
+            CVentaDAO tip = new CVentaDAO();
             for (int i = 0; i < tip.Descripcion(nombre).size(); i++) {
-                jcbTipoV.addItem(tip.Descripcion(nombre).get(i).getProDescripcion().toString());
+                jcbDescV.addItem(tip.Descripcion(nombre).get(i).getProDescripcion().toString());
             }
-        }*/
+        }
     }//GEN-LAST:event_jcbTipoVItemStateChanged
 
     private void jcbCantVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCantVItemStateChanged
@@ -216,17 +263,24 @@ public class FBuscarProducto extends javax.swing.JFrame {
 
     private void jcbDescVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbDescVItemStateChanged
         // TODO add your handling code here:
-        /*String subtipo;
+        jcbCantV.removeAllItems();
+        String subtipo;
         String descripcion;
-        CProductoDAO tip = new CProductoDAO();
+        CVentaDAO tip = new CVentaDAO();
         int cantidadPro = 0;
         descripcion = jcbDescV.getSelectedItem().toString();
         subtipo = jcbTipoV.getSelectedItem().toString();
         cantidadPro = tip.Cantidad_Productos_Stock(subtipo, descripcion);
         for (int i = 1; i <= cantidadPro; i++) {
-             jcbCantV.addItem(String.valueOf(i));
-        }*/
+            jcbCantV.addItem(String.valueOf(i));
+        }
+        precioUni = tip.Precio_Producto(subtipo, descripcion);
     }//GEN-LAST:event_jcbDescVItemStateChanged
+
+    private void btnVolverVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverVActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVolverVActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,6 +319,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAñadirV;
+    private javax.swing.JButton btnVolverV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
