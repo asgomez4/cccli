@@ -43,7 +43,7 @@ public class CGrupoProductoDAO {
             ResultSet rs = ps.executeQuery();
 
             dat = new CGrupoProductoDAO();
-            dat.setGrupo("Selecciona grupo");
+            dat.setGrupo("SELECCIONAR GRUPO");
             datos.add(dat);
 
             while (rs.next()) {

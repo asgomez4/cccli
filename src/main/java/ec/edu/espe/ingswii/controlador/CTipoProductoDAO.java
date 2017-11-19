@@ -34,7 +34,7 @@ public class CTipoProductoDAO {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             dat = new CTipoProductoDAO();
-            dat.setTipo("Seleccionar Tipo");
+            dat.setTipo("SELECCIONAR TIPO");
             datos.add(dat);
             while (rs.next()){
                 dat = new CTipoProductoDAO();

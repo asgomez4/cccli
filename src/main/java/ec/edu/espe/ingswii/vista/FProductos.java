@@ -29,12 +29,49 @@ public class FProductos extends javax.swing.JFrame {
         for (int i = 0; i < cc.mostrarGrupo().size(); i++) {
             cbGrupo.addItem(cc.mostrarGrupo().get(i).getGrupo().toString());
         }
+        Editable();
+        Ocultar();
+        cbTipo.setSelectedIndex(0);
+        cbGrupo.setSelectedIndex(0);
+    }
+    public void Editable(){
         txtCodigo.setEditable(false);
         txtSerie.setEditable(false);txtModelo.setEditable(false);txtMarca.setEditable(false);
         txtPrecio.setEditable(false);txtTipo.setEditable(false);txtDescripcion.setEditable(false);
         txtResumen.setEditable(false);
-        cbTipo.setSelectedIndex(0);
-        cbGrupo.setSelectedIndex(0);
+    }
+    public void Ocultar(){
+        txtSerie.setVisible(false);lblSerie.setVisible(false);
+        txtModelo.setVisible(false);lblModelo.setVisible(false);
+        txtMarca.setVisible(false);lblMarca.setVisible(false);
+        txtPrecio.setVisible(false);lblPrecio.setVisible(false);
+        txtTipo.setVisible(false);lblTipo1.setVisible(false);
+        txtDescripcion.setVisible(false);lblDescripcion.setVisible(false);
+        txt1.setVisible(false);txt2.setVisible(false);txt3.setVisible(false);
+        txtStock.setVisible(false);lblStock.setVisible(false);
+    }
+    public void MostrarSi(){
+        txtSerie.setVisible(true);lblSerie.setVisible(true); txtSerie.setEditable(true);
+        txtModelo.setVisible(true);lblModelo.setVisible(true);txtModelo.setEditable(true);
+        txtMarca.setVisible(true);lblMarca.setVisible(true);txtMarca.setEditable(true);
+        txtPrecio.setVisible(true);lblPrecio.setVisible(true);txtPrecio.setEditable(true);
+        txtTipo.setVisible(true);lblTipo1.setVisible(true);
+        txtDescripcion.setVisible(true);lblDescripcion.setVisible(true);txtDescripcion.setEditable(true);
+        txt1.setVisible(true);txt2.setVisible(true);txt3.setVisible(true);
+        txtStock.setVisible(true);lblStock.setVisible(true);
+        String st="1";
+        txtStock.setText(st); txtStock.setEditable(false);
+    }
+    public void MostrarNo(){
+        
+        txtMarca.setVisible(true);lblMarca.setVisible(true);txtMarca.setEditable(true);
+        txtPrecio.setVisible(true);lblPrecio.setVisible(true);txtPrecio.setEditable(true);
+        txtTipo.setVisible(true);lblTipo1.setVisible(true);
+        txtDescripcion.setVisible(true);lblDescripcion.setVisible(true);txtDescripcion.setEditable(true);
+        txt1.setVisible(true);txt2.setVisible(true);txt3.setVisible(true);
+        txtStock.setVisible(true);lblStock.setVisible(true);
+        txtStock.setText("");txtStock.setEditable(true);
+        txtSerie.setText(""); txtModelo.setText("");
     }
     public void Limpiar(){
         txtCodigo.setText("");
@@ -73,10 +110,8 @@ public class FProductos extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         pnlDetalles = new javax.swing.JPanel();
         lblTexto = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        txt3 = new javax.swing.JLabel();
         lblCodigo = new javax.swing.JLabel();
-        rdNo = new javax.swing.JRadioButton();
-        rdSi = new javax.swing.JRadioButton();
         lblStock = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         lblSerie = new javax.swing.JLabel();
@@ -91,10 +126,11 @@ public class FProductos extends javax.swing.JFrame {
         txtStock = new javax.swing.JTextField();
         lblDescripcion = new javax.swing.JLabel();
         txtTipo = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtDescripcion = new javax.swing.JTextArea();
+        txt1 = new javax.swing.JLabel();
+        txt2 = new javax.swing.JLabel();
+        btnNo = new javax.swing.JButton();
+        btnSi = new javax.swing.JButton();
+        txtDescripcion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         pnlResumen = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -214,28 +250,18 @@ public class FProductos extends javax.swing.JFrame {
         lblTexto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTexto.setText("Es un producto con identificación?");
         pnlDetalles.add(lblTexto);
-        lblTexto.setBounds(30, 60, 200, 15);
+        lblTexto.setBounds(20, 60, 200, 15);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel8.setText("*");
-        pnlDetalles.add(jLabel8);
-        jLabel8.setBounds(20, 250, 20, 15);
+        txt3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txt3.setForeground(new java.awt.Color(255, 0, 0));
+        txt3.setText("*");
+        pnlDetalles.add(txt3);
+        txt3.setBounds(20, 250, 20, 15);
 
         lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblCodigo.setText("Código:");
         pnlDetalles.add(lblCodigo);
         lblCodigo.setBounds(30, 30, 41, 15);
-
-        rdNo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rdNo.setText("No");
-        pnlDetalles.add(rdNo);
-        rdNo.setBounds(280, 60, 40, 23);
-
-        rdSi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rdSi.setText("Si");
-        pnlDetalles.add(rdSi);
-        rdSi.setBounds(230, 60, 40, 23);
 
         lblStock.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblStock.setText("Stock:");
@@ -257,11 +283,6 @@ public class FProductos extends javax.swing.JFrame {
         lblSerie.setBounds(30, 90, 50, 15);
 
         txtSerie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtSerie.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtSerieMouseClicked(evt);
-            }
-        });
         txtSerie.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSerieKeyReleased(evt);
@@ -276,11 +297,6 @@ public class FProductos extends javax.swing.JFrame {
         lblModelo.setBounds(30, 130, 50, 15);
 
         txtModelo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtModelo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtModeloMouseClicked(evt);
-            }
-        });
         txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtModeloKeyReleased(evt);
@@ -295,23 +311,21 @@ public class FProductos extends javax.swing.JFrame {
         lblMarca.setBounds(30, 170, 50, 15);
 
         txtMarca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtMarca.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtMarcaMouseClicked(evt);
-            }
-        });
         txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMarcaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyTyped(evt);
             }
         });
         pnlDetalles.add(txtMarca);
         txtMarca.setBounds(90, 165, 220, 30);
 
         txtPrecio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txtPrecio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtPrecioMouseClicked(evt);
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
             }
         });
         pnlDetalles.add(txtPrecio);
@@ -340,34 +354,37 @@ public class FProductos extends javax.swing.JFrame {
         pnlDetalles.add(txtTipo);
         txtTipo.setBounds(90, 240, 220, 30);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel17.setText("*");
-        pnlDetalles.add(jLabel17);
-        jLabel17.setBounds(20, 30, 20, 15);
+        txt1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txt1.setForeground(new java.awt.Color(255, 0, 0));
+        txt1.setText("*");
+        pnlDetalles.add(txt1);
+        txt1.setBounds(20, 30, 20, 15);
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel18.setText("*");
-        pnlDetalles.add(jLabel18);
-        jLabel18.setBounds(20, 210, 20, 15);
+        txt2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txt2.setForeground(new java.awt.Color(255, 0, 0));
+        txt2.setText("*");
+        pnlDetalles.add(txt2);
+        txt2.setBounds(20, 210, 20, 15);
 
-        txtDescripcion.setColumns(20);
-        txtDescripcion.setRows(5);
-        txtDescripcion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtDescripcionMouseClicked(evt);
+        btnNo.setText("No");
+        btnNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoActionPerformed(evt);
             }
         });
-        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDescripcionKeyReleased(evt);
+        pnlDetalles.add(btnNo);
+        btnNo.setBounds(260, 60, 50, 23);
+
+        btnSi.setText("Si");
+        btnSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiActionPerformed(evt);
             }
         });
-        jScrollPane2.setViewportView(txtDescripcion);
-
-        pnlDetalles.add(jScrollPane2);
-        jScrollPane2.setBounds(340, 120, 210, 110);
+        pnlDetalles.add(btnSi);
+        btnSi.setBounds(218, 60, 40, 23);
+        pnlDetalles.add(txtDescripcion);
+        txtDescripcion.setBounds(340, 130, 210, 100);
 
         getContentPane().add(pnlDetalles);
         pnlDetalles.setBounds(10, 170, 570, 280);
@@ -408,6 +425,11 @@ public class FProductos extends javax.swing.JFrame {
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnCancelar.setText("Volver");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnNuevo.setText("Nuevo");
@@ -478,9 +500,11 @@ public class FProductos extends javax.swing.JFrame {
     private void btnNuevoGTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGTActionPerformed
         // TODO add your handling code here:
         //seleccionar opcion radio button
-        if (rdGrupo.isSelected() == false && rdTipo.isSelected() == false) {//valida sino a seleccionado alguna opcion 
+        if ((rdGrupo.isSelected() == false && rdTipo.isSelected() == false) || 
+                (rdGrupo.isSelected() == true && rdTipo.isSelected() == true)) {//valida sino a seleccionado alguna opcion 
             JOptionPane.showMessageDialog(null, "SELECCIONE EL GRUPO O TIPO HA CREAR");
-        } else {
+        }
+        else {
             if (rdGrupo.isSelected()) {
                 //this.hide();
                 FNuevoGrupo obj1 = new FNuevoGrupo();
@@ -516,7 +540,7 @@ public class FProductos extends javax.swing.JFrame {
 
     private void btnGenerarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarCodigoActionPerformed
         // TODO add your handling code here:
-        if (cbGrupo.getSelectedItem()=="Selecciona grupo" || cbTipo.getSelectedItem()=="Seleccionar Tipo"){
+        if (cbGrupo.getSelectedItem()=="SELECCIONAR GRUPO" || cbTipo.getSelectedItem()=="SELECCIONAR TIPO"){
             JOptionPane.showMessageDialog(null, "SELECCIONE EL GRUPO Y TIPO DE PRODUCTO");                
         }
         else{
@@ -525,52 +549,6 @@ public class FProductos extends javax.swing.JFrame {
             btnGenerarCodigo.setEnabled(false);
         }
     }//GEN-LAST:event_btnGenerarCodigoActionPerformed
-
-    private void txtSerieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSerieMouseClicked
-        // TODO add your handling code here:
-        if(txtCodigo.getText().equals("")){;
-        }
-        else{            
-            txtSerie.setEditable(true);
-        }
-    }//GEN-LAST:event_txtSerieMouseClicked
-
-    private void txtModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtModeloMouseClicked
-        // TODO add your handling code here:
-        if(txtCodigo.getText().equals("")){             
-        }
-        else{            
-            txtModelo.setEditable(true);
-        }
-        
-    }//GEN-LAST:event_txtModeloMouseClicked
-
-    private void txtMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMarcaMouseClicked
-        // TODO add your handling code here:
-        if(txtCodigo.getText().equals("")){            
-        }
-        else{            
-            txtMarca.setEditable(true);
-        }        
-    }//GEN-LAST:event_txtMarcaMouseClicked
-
-    private void txtPrecioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPrecioMouseClicked
-        // TODO add your handling code here:
-        if(txtCodigo.getText().equals("")){            
-        }
-        else{            
-            txtPrecio.setEditable(true);
-        }        
-    }//GEN-LAST:event_txtPrecioMouseClicked
-
-    private void txtDescripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDescripcionMouseClicked
-        // TODO add your handling code here:
-        if(txtCodigo.getText().equals("")){            
-        }
-        else{            
-            txtDescripcion.setEditable(true);
-        }
-    }//GEN-LAST:event_txtDescripcionMouseClicked
 
     private void txtCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoMouseClicked
         // TODO add your handling code here:
@@ -594,20 +572,15 @@ public class FProductos extends javax.swing.JFrame {
         txtMarca.setText(txtMarca.getText().toUpperCase());
     }//GEN-LAST:event_txtMarcaKeyReleased
 
-    private void txtDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyReleased
-        // TODO add your handling code here:
-        txtDescripcion.setText(txtDescripcion.getText().toUpperCase());
-    }//GEN-LAST:event_txtDescripcionKeyReleased
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         int exito =  pro.insetarProducto(txtCodigo.getText(), txtSerie.getText(), txtModelo.getText(), txtMarca.getText(), txtPrecio.getText(), txtTipo.getText(), txtDescripcion.getText(), txtStock.getText());
         if(exito>0){
-            JOptionPane.showMessageDialog(null, "PRODUCTO GUARDADO ","ÉXITO", JOptionPane.INFORMATION_MESSAGE);
-            Limpiar();
+            JOptionPane.showMessageDialog(null, "PRODUCTO GUARDADO ","ÉXITO", JOptionPane.INFORMATION_MESSAGE);            
             String resumen = "USTED HA REGISTRADO LA SIGUIENTE INFORMACIÓN: \nCódigo: " + txtCodigo.getText() + "\nSerie: " + txtSerie.getText() + "\nModelo: " + txtModelo.getText()+
                             "\nMarca: " + txtMarca.getText() + "\nPrecio: " + txtPrecio.getText() + "\nTipo: " +"\nDescripción: "+ txtDescripcion.getText() + txtTipo.getText() + "\nStock: " + txtStock.getText();
-            txtResumen.setText(resumen);            
+            txtResumen.setText(resumen);  
+            Limpiar();
         }else{
             JOptionPane.showMessageDialog(null, "INTENTALO NUEVAMENTE", "ERROR", JOptionPane.ERROR_MESSAGE); 
         }
@@ -625,7 +598,53 @@ public class FProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         Limpiar();
         txtResumen.setText("");
+        btnGenerarCodigo.setEnabled(true);
+        Editable();
+        Ocultar();
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:        
+        FMenu obj=new FMenu();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(c<'0'||c>'9'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if((c<'a'||c>'z')&&(c<'A'||c>'Z')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMarcaKeyTyped
+
+    private void btnSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiActionPerformed
+        // TODO add your handling code here:
+        if(txtCodigo.getText().equals("")){;
+            JOptionPane.showMessageDialog(null, "NO HA GENERADO UN CÓDIGO");
+        }else{
+            Ocultar();
+            MostrarSi();
+        }
+    }//GEN-LAST:event_btnSiActionPerformed
+
+    private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
+        // TODO add your handling code here:
+        if(txtCodigo.getText().equals("")){;
+            JOptionPane.showMessageDialog(null, "NO HA GENERADO UN CÓDIGO");
+        }else{
+            Ocultar();
+            MostrarNo();
+        }
+    }//GEN-LAST:event_btnNoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -667,18 +686,16 @@ public class FProductos extends javax.swing.JFrame {
     private javax.swing.JButton btnGenerarCodigo;
     private javax.swing.JButton btnGestionar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNo;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnNuevoGT;
+    private javax.swing.JButton btnSi;
     private javax.swing.JComboBox<String> cbGrupo;
     private javax.swing.JComboBox<String> cbTipo;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblDescripcion;
@@ -697,11 +714,12 @@ public class FProductos extends javax.swing.JFrame {
     private javax.swing.JPanel pnlProducto;
     private javax.swing.JPanel pnlResumen;
     private javax.swing.JRadioButton rdGrupo;
-    private javax.swing.JRadioButton rdNo;
-    private javax.swing.JRadioButton rdSi;
     private javax.swing.JRadioButton rdTipo;
+    private javax.swing.JLabel txt1;
+    private javax.swing.JLabel txt2;
+    private javax.swing.JLabel txt3;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtPrecio;
