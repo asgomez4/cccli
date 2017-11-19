@@ -7,6 +7,7 @@ package ec.edu.espe.ingswii.controlador;
 
 import ec.edu.espe.ingswii.modelo.CProducto;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -140,7 +141,7 @@ public class CVentaDAO {
         return num;
     }
 
-    public final void registrarCompra(String venta, String cliCedula, String comNumFicha, String comTipo, float comPrecioTotal, String fechaParaSQL) {
+    public final void registrarCompra(String venta, String cliCedula, String comNumFicha, String comTipo, float comPrecioTotal, Date fechaParaSQL) {
         System.out.println("Entraaaa funcion regCom \n" + venta + "\n" + cliCedula + "\n" + comNumFicha + "\n" + String.valueOf(comPrecioTotal) + "\n" + fechaParaSQL);
         PreparedStatement sentencia = null;
         final Connection con = conn.getConnection();
@@ -152,7 +153,7 @@ public class CVentaDAO {
             sentencia.setString(3, comNumFicha);
             sentencia.setString(4, comTipo);
             sentencia.setFloat(5, comPrecioTotal);
-            sentencia.setString(6, fechaParaSQL);
+            sentencia.setDate(6, fechaParaSQL);
             sentencia.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block

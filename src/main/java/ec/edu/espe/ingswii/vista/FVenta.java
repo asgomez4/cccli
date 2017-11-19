@@ -386,7 +386,7 @@ public class FVenta extends javax.swing.JFrame {
         numero = obj.numero_Compra();
         numero = numero + 1;
         numeroVen = String.valueOf(numero);
-        obj.registrarCompra(numeroVen, txtCIVenta.getText(), comNumFicha, "1", total, currentTime);
+        obj.registrarCompra(numeroVen, txtCIVenta.getText(), comNumFicha, "1", total, (java.sql.Date) dt);
         for (int i = 0; i < auxiliar; i++) {
             codigo = String.valueOf(dtm.getValueAt(i, 0));
             codigovent = Integer.parseInt(codigo);
