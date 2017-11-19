@@ -82,8 +82,8 @@ public class CVentaDAO {
     }
 
     public DefaultTableModel visualisarProductos(DefaultTableModel tablaProd,
-            String cantidad, String desc, String pUni, String tot) {
-        tablaProd.addRow(new String[]{cantidad, desc, pUni, tot});
+            String codigo, String cantidad, String desc, String pUni, String tot) {
+        tablaProd.addRow(new String[]{codigo, cantidad, desc, pUni, tot});
         return tablaProd;
     }
 
@@ -98,24 +98,63 @@ public class CVentaDAO {
             }
             rs.close();
         } catch (Exception ex) {
-           System.err.println("Error consulta :" + ex.getMessage());
+            System.err.println("Error consulta :" + ex.getMessage());
         }
         return codigo;
     }
 
     public int actualizarStock(String tipo, String descripcion, String cantidad) {
+        PreparedStatement sentencia = null;
+        final Connection con = conn.getConnection();
         int aux = 0;
-        int codigo = 0;
-        codigo = obtenerCodigo(tipo, descripcion);
+        int cod = 0;
+        cod = obtenerCodigo(tipo, descripcion);
+        // update del cliente dentro de la BD
         try {
-            String sql = "Update producto set pro_stock='" + cantidad + " ' where pro_codigo='" + codigo + "';";
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            rs.close();
-        } catch (Exception ex) {
-             System.err.println("Error consulta :" + ex.getMessage());
+            sentencia = con.prepareStatement("update producto set pro_stock = ?  where pro_codigo = ?");
+            sentencia.setString(1, cantidad);
+            sentencia.setInt(2, cod);
+            aux = sentencia.executeUpdate();
+            if (aux > 0) {
+                //JOptionPane.showMessageDialog(null, "Datos correctamente modificados");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error consulta :" + e.getMessage());
         }
         return aux;
     }
 
+    public int numero_Compra() {
+        int num = 0;
+        try {
+            String sql = "SELECT max(ven_NUMVENTA) from venta;";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                num = rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception ex) {
+            System.err.println("Error consulta :" + ex.getMessage());
+        }
+        return num;
+    }
+    
+    public final void registrarCompra(String venta, String cliCedula, String comNumFicha, String comTipo, float comPrecioTotal, String fechaParaSQL) {
+        PreparedStatement sentencia = null;
+        final Connection con = conn.getConnection();
+        // insertar los datos del cliente dentro de la BD
+        try {
+            sentencia = con.prepareStatement("insert into venta (ven_numventa,cli_cedula,ven_num_ficha,ven_tipo,ven_preciototal,ven_fecha) values (?,?,?,?,?,?)");
+            sentencia.setString(1, venta);
+            sentencia.setString(2, cliCedula);
+            sentencia.setString(3, comNumFicha);
+            sentencia.setString(4, comTipo);
+            sentencia.setFloat(5, comPrecioTotal);
+            sentencia.setDate(6, java.sql.Date.valueOf(fechaParaSQL));
+            sentencia.execute();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+        }
+    }
 }

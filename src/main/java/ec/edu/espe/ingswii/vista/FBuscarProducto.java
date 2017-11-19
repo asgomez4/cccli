@@ -24,6 +24,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
     float precioTotal;
     float subTotal;
     float total;
+    int cantidadPro;
 
     public FVenta getNuevaVenta() {
         return nuevaVenta;
@@ -40,13 +41,15 @@ public class FBuscarProducto extends javax.swing.JFrame {
         initComponents();
         subTotal = 0;
         total = 0;
+        cantidadPro = 0;
         setLocationRelativeTo(null);//centrar la pantalla 
         modelo = new DefaultTableModel();
         CGrupoProductoDAO cc = new CGrupoProductoDAO();
         jcbGrupoV.removeAllItems();
         for (int i = 0; i < cc.mostrarGrupo().size(); i++) {
             jcbGrupoV.addItem(cc.mostrarGrupo().get(i).getGrupo().toString());
-        }        
+        }
+        modelo.addColumn("Codigo");
         modelo.addColumn("Cant.");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Precio Unit.");
@@ -226,20 +229,25 @@ public class FBuscarProducto extends javax.swing.JFrame {
     /**
      * Metodo que muetra datos de los productos.
      */
-    protected final void listado(DefaultTableModel modelo) {
-        String vacio = "";        
+    protected void listado(DefaultTableModel modelo) {
+        String vacio = "";
+        int cantidadFinal = 0;
+        int codigo = 0;
         CVentaDAO venta = new CVentaDAO();
         try {
+            codigo = venta.obtenerCodigo(jcbTipoV.getSelectedItem().toString(), jcbDescV.getSelectedItem().toString());
             precioTotal = precioUni * Float.parseFloat(jcbCantV.getSelectedItem().toString());
             nuevaVenta.tblProdVentas.setModel(modelo);
-            nuevaVenta.tblProdVentas.setModel(venta.visualisarProductos((modelo),
-                     jcbCantV.getSelectedItem().toString(), jcbDescV.getSelectedItem().toString(),
-                     String.valueOf(precioUni), String.valueOf(precioTotal)));
+            nuevaVenta.tblProdVentas.setModel(venta.visualisarProductos((modelo), String.valueOf(codigo) 
+                    ,jcbCantV.getSelectedItem().toString(), jcbDescV.getSelectedItem().toString(),
+                    String.valueOf(precioUni), String.valueOf(precioTotal)));
             subTotal += precioTotal;
-            total = (float)(subTotal + (subTotal * 0.12));
+            total = (float) (subTotal + (subTotal * 0.12));
             nuevaVenta.txtSubTotal.setText(String.valueOf(subTotal));
-            nuevaVenta.txtIva.setText(String.valueOf((double)Math.round((subTotal * 0.12) * 100d) / 100d));
+            nuevaVenta.txtIva.setText(String.valueOf((double) Math.round((subTotal * 0.12) * 100d) / 100d));
             nuevaVenta.txtTotal.setText(String.valueOf(total));
+            cantidadFinal = cantidadPro - Integer.parseInt(jcbCantV.getSelectedItem().toString());
+            venta.actualizarStock(jcbTipoV.getSelectedItem().toString(), jcbDescV.getSelectedItem().toString(), String.valueOf(cantidadFinal));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error");
             ex.printStackTrace();
@@ -267,7 +275,6 @@ public class FBuscarProducto extends javax.swing.JFrame {
         String subtipo;
         String descripcion;
         CVentaDAO tip = new CVentaDAO();
-        int cantidadPro = 0;
         descripcion = jcbDescV.getSelectedItem().toString();
         subtipo = jcbTipoV.getSelectedItem().toString();
         cantidadPro = tip.Cantidad_Productos_Stock(subtipo, descripcion);

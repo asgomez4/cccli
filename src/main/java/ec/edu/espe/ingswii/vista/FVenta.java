@@ -5,6 +5,9 @@
  */
 package ec.edu.espe.ingswii.vista;
 
+import ec.edu.espe.ingswii.controlador.CVentaDAO;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -262,6 +265,11 @@ public class FVenta extends javax.swing.JFrame {
 
         btnVGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVGuardar.setText("Guardar");
+        btnVGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVGuardarActionPerformed(evt);
+            }
+        });
 
         btnVLimpiar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVLimpiar.setText("Limpiar");
@@ -351,9 +359,41 @@ public class FVenta extends javax.swing.JFrame {
 
     private void btnMenProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenProActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel dtm = (DefaultTableModel) tblProdVentas.getModel();  
+        DefaultTableModel dtm = (DefaultTableModel) tblProdVentas.getModel();
         dtm.removeRow(tblProdVentas.getSelectedRow());
     }//GEN-LAST:event_btnMenProActionPerformed
+
+    private void btnVGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVGuardarActionPerformed
+        // TODO add your handling code here:
+        int a = 0, b = 0, numero = 0;
+        CVentaDAO obj = new CVentaDAO();
+        DateFormat df = new SimpleDateFormat("yyyy-M-d");
+        String fecha = df.format(txtFechaVenta.getText());
+        String codigo = "";
+        String comNumFicha = "";
+        String numeroVen = "";
+        int codigovent = 0;
+        float total = Float.parseFloat(txtTotal.getText());
+        numero = obj.numero_Compra();
+        numero = numero + 1;
+        numeroVen = String.valueOf(numero);
+        obj.registrarCompra(numeroVen, txtClienteVenta.getText(), comNumFicha, "1", total, fecha);
+        /*for (int i = 0; i < (auxiliar); i++) {
+            codigo = dvgVenta.Rows[i].Cells[0].Value.ToString();
+            codigovent = int.Parse(codigo        
+        
+        
+        );
+                    }
+                    //MessageBox.Show("Tengo este codigo  " + codigovent.ToString() + "  con este numero  " + numero.ToString());
+                    b = Venta.productoCompra(codigovent, numero.ToString());
+        if (a == 1 && b == 1) {
+            MessageBox.Show("Se ha registrado correctamente su compra");
+            Limpiar();
+            check_Credito.Enabled = true;
+
+        }*/
+    }//GEN-LAST:event_btnVGuardarActionPerformed
 
     /**
      * @param args the command line arguments
