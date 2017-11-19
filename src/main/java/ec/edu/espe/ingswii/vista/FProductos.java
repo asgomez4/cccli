@@ -32,6 +32,21 @@ public class FProductos extends javax.swing.JFrame {
         txtCodigo.setEditable(false);
         txtSerie.setEditable(false);txtModelo.setEditable(false);txtMarca.setEditable(false);
         txtPrecio.setEditable(false);txtTipo.setEditable(false);txtDescripcion.setEditable(false);
+        txtResumen.setEditable(false);
+        cbTipo.setSelectedIndex(0);
+        cbGrupo.setSelectedIndex(0);
+    }
+    public void Limpiar(){
+        txtCodigo.setText("");
+        txtSerie.setText("");
+        txtModelo.setText("");
+        txtMarca.setText("");
+        txtPrecio.setText("");
+        txtTipo.setText("");
+        txtDescripcion.setText("");
+        txtStock.setText("");
+        cbTipo.setSelectedIndex(0);
+        cbGrupo.setSelectedIndex(0);
     }
 
     /**
@@ -367,7 +382,6 @@ public class FProductos extends javax.swing.JFrame {
 
         txtResumen.setColumns(20);
         txtResumen.setRows(5);
-        txtResumen.setEnabled(false);
         jScrollPane1.setViewportView(txtResumen);
 
         javax.swing.GroupLayout pnlResumenLayout = new javax.swing.GroupLayout(pnlResumen);
@@ -397,6 +411,11 @@ public class FProductos extends javax.swing.JFrame {
 
         btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnGuardar.setText("Guardar");
@@ -484,6 +503,7 @@ public class FProductos extends javax.swing.JFrame {
     private void cbGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbGrupoItemStateChanged
         // TODO add your handling code here:
         String nombre = "";
+        cbTipo.setSelectedIndex(0);  
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             nombre = cbGrupo.getSelectedItem().toString();
             CTipoProductoDAO tip = new CTipoProductoDAO();
@@ -584,6 +604,10 @@ public class FProductos extends javax.swing.JFrame {
         int exito =  pro.insetarProducto(txtCodigo.getText(), txtSerie.getText(), txtModelo.getText(), txtMarca.getText(), txtPrecio.getText(), txtTipo.getText(), txtDescripcion.getText(), txtStock.getText());
         if(exito>0){
             JOptionPane.showMessageDialog(null, "PRODUCTO GUARDADO ","ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+            Limpiar();
+            String resumen = "USTED HA REGISTRADO LA SIGUIENTE INFORMACIÓN: \nCódigo: " + txtCodigo.getText() + "\nSerie: " + txtSerie.getText() + "\nModelo: " + txtModelo.getText()+
+                            "\nMarca: " + txtMarca.getText() + "\nPrecio: " + txtPrecio.getText() + "\nTipo: " +"\nDescripción: "+ txtDescripcion.getText() + txtTipo.getText() + "\nStock: " + txtStock.getText();
+            txtResumen.setText(resumen);            
         }else{
             JOptionPane.showMessageDialog(null, "INTENTALO NUEVAMENTE", "ERROR", JOptionPane.ERROR_MESSAGE); 
         }
@@ -596,6 +620,12 @@ public class FProductos extends javax.swing.JFrame {
         }else{
         }
     }//GEN-LAST:event_btnGuardarMouseClicked
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        Limpiar();
+        txtResumen.setText("");
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
