@@ -46,9 +46,9 @@ public class FNuevoTipo extends javax.swing.JFrame {
         cbGrupo = new javax.swing.JComboBox<>();
         lblGrupo1 = new javax.swing.JLabel();
         pnlOpciones = new javax.swing.JPanel();
-        btnNuevo = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        btnNuevo1 = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -74,16 +74,16 @@ public class FNuevoTipo extends javax.swing.JFrame {
 
         txtTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtTipo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTipoKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTipoKeyReleased(evt);
             }
         });
         pnlRegistrar.add(txtTipo);
-        txtTipo.setBounds(150, 80, 150, 30);
+        txtTipo.setBounds(130, 80, 170, 30);
 
         cbGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlRegistrar.add(cbGrupo);
-        cbGrupo.setBounds(150, 30, 150, 30);
+        cbGrupo.setBounds(130, 30, 170, 30);
 
         lblGrupo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblGrupo1.setText("Grupo: ");
@@ -96,10 +96,15 @@ public class FNuevoTipo extends javax.swing.JFrame {
         pnlOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         pnlOpciones.setLayout(null);
 
-        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnNuevo.setText("Volver");
-        pnlOpciones.add(btnNuevo);
-        btnNuevo.setBounds(270, 40, 110, 30);
+        btnVolver.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        pnlOpciones.add(btnVolver);
+        btnVolver.setBounds(270, 40, 110, 30);
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnGuardar.setText("Guardar");
@@ -111,24 +116,21 @@ public class FNuevoTipo extends javax.swing.JFrame {
         pnlOpciones.add(btnGuardar);
         btnGuardar.setBounds(140, 40, 110, 30);
 
-        btnNuevo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnNuevo1.setText("Nuevo");
-        pnlOpciones.add(btnNuevo1);
-        btnNuevo1.setBounds(10, 40, 110, 30);
+        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+        pnlOpciones.add(btnNuevo);
+        btnNuevo.setBounds(10, 40, 110, 30);
 
         getContentPane().add(pnlOpciones);
         pnlOpciones.setBounds(5, 203, 390, 90);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoKeyTyped
-        // TODO add your handling code here:
-        char c=evt.getKeyChar();
-        if((c<'A'||c>'Z')){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtTipoKeyTyped
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
@@ -140,6 +142,24 @@ public class FNuevoTipo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"INTENTALO NUEVAMENTE", "ERROR", JOptionPane.ERROR_MESSAGE); 
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        cbGrupo.setSelectedIndex(0);
+        txtTipo.setText("");        
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        FProductos obj=new FProductos();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void txtTipoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoKeyReleased
+        // TODO add your handling code here:
+        txtTipo.setText(txtTipo.getText().toUpperCase());
+    }//GEN-LAST:event_txtTipoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -180,7 +200,7 @@ public class FNuevoTipo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton btnNuevo1;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbGrupo;
     private javax.swing.JLabel lblGrupo;
     private javax.swing.JLabel lblGrupo1;
