@@ -9,6 +9,7 @@ import ec.edu.espe.ingswii.controlador.CVentaDAO;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,20 +18,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FVenta extends javax.swing.JFrame {
 
-    private Calendar c;
-    int año, mes, dia;
+    java.util.Date dt = new java.util.Date();
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    String currentTime = "";
 
     /**
      * Creates new form FVenta
      */
     public FVenta() {
         initComponents();
-        setLocationRelativeTo(null);//centrar la pantalla 
-        c = Calendar.getInstance();
-        año = c.get(Calendar.YEAR);
-        mes = c.get(Calendar.MONTH) + 1;
-        dia = c.get(Calendar.DATE);
-        txtFechaVenta.setText(año + "/" + mes + "/" + dia);
+        setLocationRelativeTo(null);//centrar la pantalla
+        currentTime = sdf.format(dt);
+        txtFechaVenta.setText(currentTime);
     }
 
     /**
@@ -110,27 +109,27 @@ public class FVenta extends javax.swing.JFrame {
         txtDirVenta.setEditable(false);
         txtDirVenta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlDatosCliente.add(txtDirVenta);
-        txtDirVenta.setBounds(70, 90, 470, 21);
+        txtDirVenta.setBounds(70, 90, 460, 21);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Fecha:");
         pnlDatosCliente.add(jLabel5);
-        jLabel5.setBounds(290, 30, 36, 15);
+        jLabel5.setBounds(280, 30, 36, 15);
 
         txtFechaVenta.setEditable(false);
         txtFechaVenta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlDatosCliente.add(txtFechaVenta);
-        txtFechaVenta.setBounds(350, 30, 192, 21);
+        txtFechaVenta.setBounds(340, 30, 192, 21);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Teléfono:");
         pnlDatosCliente.add(jLabel6);
-        jLabel6.setBounds(290, 60, 53, 15);
+        jLabel6.setBounds(280, 60, 53, 15);
 
         txtTelfVenta.setEditable(false);
         txtTelfVenta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlDatosCliente.add(txtTelfVenta);
-        txtTelfVenta.setBounds(350, 60, 192, 21);
+        txtTelfVenta.setBounds(340, 60, 190, 21);
 
         btnLllenarDatos.setBackground(new java.awt.Color(204, 204, 255));
         btnLllenarDatos.setText("Llenar datos del Cliente");
@@ -141,7 +140,7 @@ public class FVenta extends javax.swing.JFrame {
             }
         });
         pnlDatosCliente.add(btnLllenarDatos);
-        btnLllenarDatos.setBounds(550, 40, 130, 50);
+        btnLllenarDatos.setBounds(540, 30, 140, 60);
 
         pnlTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
@@ -273,9 +272,19 @@ public class FVenta extends javax.swing.JFrame {
 
         btnVLimpiar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVLimpiar.setText("Limpiar");
+        btnVLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVLimpiarActionPerformed(evt);
+            }
+        });
 
         btnVVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVVolver.setText("Volver");
+        btnVVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVVolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -365,10 +374,10 @@ public class FVenta extends javax.swing.JFrame {
 
     private void btnVGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVGuardarActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tblProdVentas.getModel();
         int a = 0, b = 0, numero = 0;
         CVentaDAO obj = new CVentaDAO();
-        DateFormat df = new SimpleDateFormat("yyyy-M-d");
-        String fecha = df.format(txtFechaVenta.getText());
+        int auxiliar = dtm.getRowCount();
         String codigo = "";
         String comNumFicha = "";
         String numeroVen = "";
@@ -377,23 +386,43 @@ public class FVenta extends javax.swing.JFrame {
         numero = obj.numero_Compra();
         numero = numero + 1;
         numeroVen = String.valueOf(numero);
-        obj.registrarCompra(numeroVen, txtClienteVenta.getText(), comNumFicha, "1", total, fecha);
-        /*for (int i = 0; i < (auxiliar); i++) {
-            codigo = dvgVenta.Rows[i].Cells[0].Value.ToString();
-            codigovent = int.Parse(codigo        
-        
-        
-        );
-                    }
-                    //MessageBox.Show("Tengo este codigo  " + codigovent.ToString() + "  con este numero  " + numero.ToString());
-                    b = Venta.productoCompra(codigovent, numero.ToString());
-        if (a == 1 && b == 1) {
-            MessageBox.Show("Se ha registrado correctamente su compra");
-            Limpiar();
-            check_Credito.Enabled = true;
-
-        }*/
+        obj.registrarCompra(numeroVen, txtCIVenta.getText(), comNumFicha, "1", total, currentTime);
+        for (int i = 0; i < auxiliar; i++) {
+            codigo = String.valueOf(dtm.getValueAt(i, 0));
+            codigovent = Integer.parseInt(codigo);
+            b = obj.productoCompra(codigovent, numeroVen);
+        }
+        if (b == 1) {
+            JOptionPane.showMessageDialog(null, "Se ha registrado correctamente su compra");
+            limpiar();
+        }
     }//GEN-LAST:event_btnVGuardarActionPerformed
+
+    private void btnVVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVVolverActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVVolverActionPerformed
+
+    private void btnVLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVLimpiarActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_btnVLimpiarActionPerformed
+
+    public void limpiar() {
+        txtClienteVenta.setText("");
+        txtCIVenta.setText("");
+        txtDirVenta.setText("");
+        txtTelfVenta.setText("");
+        txtFechaVenta.setText("");
+        txtSubTotal.setText("");
+        txtIva.setText("");
+        txtTotal.setText("");
+        DefaultTableModel dtm = (DefaultTableModel) tblProdVentas.getModel();
+        int filas = dtm.getRowCount();
+        for (int i = 0; filas > i; i++) {
+            dtm.removeRow(0);
+        }
+    }
 
     /**
      * @param args the command line arguments

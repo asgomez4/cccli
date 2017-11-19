@@ -139,8 +139,9 @@ public class CVentaDAO {
         }
         return num;
     }
-    
+
     public final void registrarCompra(String venta, String cliCedula, String comNumFicha, String comTipo, float comPrecioTotal, String fechaParaSQL) {
+        System.out.println("Entraaaa funcion regCom \n" + venta + "\n" + cliCedula + "\n" + comNumFicha + "\n" + String.valueOf(comPrecioTotal) + "\n" + fechaParaSQL);
         PreparedStatement sentencia = null;
         final Connection con = conn.getConnection();
         // insertar los datos del cliente dentro de la BD
@@ -151,10 +152,27 @@ public class CVentaDAO {
             sentencia.setString(3, comNumFicha);
             sentencia.setString(4, comTipo);
             sentencia.setFloat(5, comPrecioTotal);
-            sentencia.setDate(6, java.sql.Date.valueOf(fechaParaSQL));
+            sentencia.setString(6, fechaParaSQL);
             sentencia.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
+            System.err.println("Error consulta :" + e.getMessage());
         }
+    }
+    
+    public int productoCompra(int producto, String numeroCompra) {
+        PreparedStatement sentencia = null;
+        final Connection con = conn.getConnection();
+        int band = 0;
+        try {
+            sentencia = con.prepareStatement("insert into producto_vendido (pro_codigo,ven_numventa) values (?,?)");
+            sentencia.setInt(1, producto);
+            sentencia.setString(2, numeroCompra);
+            sentencia.execute();
+            band = 1;
+        } catch (SQLException e) {
+            band = 0;
+        }
+        return band;
     }
 }

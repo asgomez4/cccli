@@ -245,7 +245,7 @@ public class FBuscarProducto extends javax.swing.JFrame {
             total = (float) (subTotal + (subTotal * 0.12));
             nuevaVenta.txtSubTotal.setText(String.valueOf(subTotal));
             nuevaVenta.txtIva.setText(String.valueOf((double) Math.round((subTotal * 0.12) * 100d) / 100d));
-            nuevaVenta.txtTotal.setText(String.valueOf(total));
+            nuevaVenta.txtTotal.setText(String.valueOf((double) Math.round((total)* 100d) / 100d));
             cantidadFinal = cantidadPro - Integer.parseInt(jcbCantV.getSelectedItem().toString());
             venta.actualizarStock(jcbTipoV.getSelectedItem().toString(), jcbDescV.getSelectedItem().toString(), String.valueOf(cantidadFinal));
         } catch (Exception ex) {
