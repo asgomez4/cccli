@@ -508,12 +508,14 @@ public class FProductos extends javax.swing.JFrame {
             if (rdGrupo.isSelected()) {
                 //this.hide();
                 FNuevoGrupo obj1 = new FNuevoGrupo();
-                obj1.show();
+                obj1.setVisible(true);
+                dispose();
             }
             if (rdTipo.isSelected()) {
                 //this.hide();
                 FNuevoTipo obj2 = new FNuevoTipo();
-                obj2.show();
+                obj2.setVisible(true);
+                dispose();
             }
         }
     }//GEN-LAST:event_btnNuevoGTActionPerformed

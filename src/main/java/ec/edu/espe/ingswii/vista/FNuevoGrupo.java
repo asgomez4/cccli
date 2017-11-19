@@ -39,9 +39,9 @@ public class FNuevoGrupo extends javax.swing.JFrame {
         txtGrupo = new javax.swing.JTextField();
         pnlOpciones = new javax.swing.JPanel();
         btnCrearTipo = new javax.swing.JButton();
-        btnGuardarGrupo = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnNuevo1 = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        btnGuardarG = new javax.swing.JButton();
         pnlTexto = new javax.swing.JPanel();
         lblTexto = new javax.swing.JLabel();
 
@@ -69,6 +69,9 @@ public class FNuevoGrupo extends javax.swing.JFrame {
 
         txtGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtGrupo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGrupoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtGrupoKeyTyped(evt);
             }
@@ -84,28 +87,43 @@ public class FNuevoGrupo extends javax.swing.JFrame {
 
         btnCrearTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnCrearTipo.setText("Crear un nuevo tipo");
+        btnCrearTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearTipoActionPerformed(evt);
+            }
+        });
         pnlOpciones.add(btnCrearTipo);
         btnCrearTipo.setBounds(30, 100, 160, 30);
 
-        btnGuardarGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGuardarGrupo.setText("Guardar");
-        btnGuardarGrupo.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarGrupoActionPerformed(evt);
+                btnNuevoActionPerformed(evt);
             }
         });
-        pnlOpciones.add(btnGuardarGrupo);
-        btnGuardarGrupo.setBounds(220, 40, 110, 30);
+        pnlOpciones.add(btnNuevo);
+        btnNuevo.setBounds(60, 40, 110, 30);
 
-        btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGuardar.setText("Volver");
-        pnlOpciones.add(btnGuardar);
-        btnGuardar.setBounds(220, 100, 110, 30);
+        btnVolver.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        pnlOpciones.add(btnVolver);
+        btnVolver.setBounds(220, 100, 110, 30);
 
-        btnNuevo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnNuevo1.setText("Crear un nuevo grupo");
-        pnlOpciones.add(btnNuevo1);
-        btnNuevo1.setBounds(30, 40, 160, 30);
+        btnGuardarG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGuardarG.setText("Guardar");
+        btnGuardarG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarGActionPerformed(evt);
+            }
+        });
+        pnlOpciones.add(btnGuardarG);
+        btnGuardarG.setBounds(220, 40, 110, 30);
 
         getContentPane().add(pnlOpciones);
         pnlOpciones.setBounds(10, 160, 390, 160);
@@ -127,12 +145,18 @@ public class FNuevoGrupo extends javax.swing.JFrame {
     private void txtGrupoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGrupoKeyTyped
         // TODO add your handling code here:
         char c=evt.getKeyChar();
-        if((c<'A'||c>'Z')){
+        if((c<'a'||c>'z')&&(c<'A'||c>'Z')){
             evt.consume();
         }                    
     }//GEN-LAST:event_txtGrupoKeyTyped
 
-    private void btnGuardarGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarGrupoActionPerformed
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        txtGrupo.setText("");
+        txtGrupo.requestFocus();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarGActionPerformed
         // TODO add your handling code here:
         int exito =  gru.insetarGrupo(txtGrupo.getText());
         if(exito>0){
@@ -140,7 +164,26 @@ public class FNuevoGrupo extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null,"INTENTALO NUEVAMENTE", "ERROR", JOptionPane.ERROR_MESSAGE); 
         }
-    }//GEN-LAST:event_btnGuardarGrupoActionPerformed
+    }//GEN-LAST:event_btnGuardarGActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        FProductos obj=new FProductos();
+        obj.setVisible(true);
+        dispose();      
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnCrearTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearTipoActionPerformed
+        // TODO add your handling code here:
+        FNuevoTipo obj=new FNuevoTipo();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCrearTipoActionPerformed
+
+    private void txtGrupoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGrupoKeyReleased
+        // TODO add your handling code here:
+        txtGrupo.setText(txtGrupo.getText().toUpperCase());
+    }//GEN-LAST:event_txtGrupoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -179,9 +222,9 @@ public class FNuevoGrupo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearTipo;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnGuardarGrupo;
-    private javax.swing.JButton btnNuevo1;
+    private javax.swing.JButton btnGuardarG;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblGrupo;
     private javax.swing.JLabel lblTexto;
