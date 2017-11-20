@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -99,6 +100,44 @@ public class CProductoDAO {
             }
         }
         return resultado;
+    }
+    public final DefaultTableModel visualisarProductosTotal(final DefaultTableModel tablaProducto) {
+        PreparedStatement sentencia = null;
+        final Connection con = conexion.getConnection();
+        // select de todos los productos y llenado de jtable
+        try {
+            sentencia = con.prepareStatement("select * from producto");
+            final ResultSet res = sentencia.executeQuery();
+            while (res.next()) {
+                pro = new CProducto(res.getString(1), res.getString(2),res.getString(3),res.getString(4),res.getString(5)
+                ,res.getString(6),res.getString(7),res.getString(8));
+                tablaProducto.addRow(new String[]{pro.getProCodigo(), pro.getProSerie(), pro.getProModelo()
+                ,pro.getProMarca(),pro.getProPrecio(),pro.getProTipo(),pro.getProDescripcion(),pro.getProStock()});
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+        }
+        return tablaProducto;
+    }
+    public final DefaultTableModel buscarTipo(final DefaultTableModel tablaProducto) {
+        PreparedStatement sentencia = null;
+        final Connection con = conexion.getConnection();
+        try {
+            sentencia = con.prepareStatement("select * from producto where tip_nombre=?");
+            sentencia.setString(1, pro.getProTipo());
+            final ResultSet res = sentencia.executeQuery();
+            while (res.next()) {
+                
+                pro = new CProducto(res.getString(1), res.getString(2),res.getString(3),res.getString(4),res.getString(5)
+                ,res.getString(6),res.getString(7),res.getString(8));
+                tablaProducto.addRow(new String[]{pro.getProCodigo(), pro.getProSerie(), pro.getProModelo()
+                ,pro.getProMarca(),pro.getProPrecio(),pro.getProTipo(),pro.getProDescripcion(),pro.getProStock()});
+            }
+           
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+        }
+        return tablaProducto;
     }
 
     //Validar si existe serie    

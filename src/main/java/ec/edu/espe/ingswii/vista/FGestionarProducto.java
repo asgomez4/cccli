@@ -5,6 +5,14 @@
  */
 package ec.edu.espe.ingswii.vista;
 
+import ec.edu.espe.ingswii.controlador.CGrupoProductoDAO;
+import ec.edu.espe.ingswii.controlador.CProductoDAO;
+import ec.edu.espe.ingswii.controlador.CTipoProductoDAO;
+import ec.edu.espe.ingswii.modelo.CProducto;
+import java.awt.event.ItemEvent;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jessy
@@ -14,10 +22,77 @@ public class FGestionarProducto extends javax.swing.JFrame {
     /**
      * Creates new form FBProducto
      */
+    CProductoDAO proDAO;
     public FGestionarProducto() {
         initComponents();
+        this.setTitle("Gestión de Producto");
         setSize(885, 460);//dar tamano fijo a la pantalla
         setLocationRelativeTo(null); //centrar la pantala        
+        CGrupoProductoDAO cc = new CGrupoProductoDAO();
+        for (int i = 0; i < cc.mostrarGrupo().size(); i++) {
+            cbGrupo.addItem(cc.mostrarGrupo().get(i).getGrupo().toString());
+        }
+        listadoProductoTotal();
+    }
+    public void limpiarDatos() {
+        txtCodigo.setText("");
+        txtSerie.setText("");
+    }
+    protected final void listadoProductoTotal() {
+        String vacio = "";
+        DefaultTableModel model = new DefaultTableModel();
+        try {
+            String codigo = txtCodigo.getText();
+            String serie = txtSerie.getText();
+            String modelo = txtModelo.getText();
+            String marca = txtMarca.getText();
+            String precio = txtPrecio.getText();
+            String tipo = txtTipo.getText();
+            String descripcion = txtDescripcion.getText();
+            String stock = txtStock.getText();
+            proDAO = new CProductoDAO(new CProducto(codigo,serie,modelo,marca,precio,tipo,descripcion,stock));
+            model.addColumn("Código");
+            model.addColumn("Serie");
+            model.addColumn("Modelo");
+            model.addColumn("Marca");
+            model.addColumn("Precio");
+            model.addColumn("Tipo");
+            model.addColumn("Descripción");
+            model.addColumn("Stock");
+            tblProducto.setModel(model);
+            tblProducto.setModel(proDAO.visualisarProductosTotal((model)));
+            limpiarDatos();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "INTENTELO DE NUEVO");
+            ex.printStackTrace();
+        }
+    }
+    protected final void listadoTipo() {
+        String tipo = cbTipo.getSelectedItem().toString();
+        DefaultTableModel model = new DefaultTableModel();
+        try {
+            String codigo = txtCodigo.getText();
+            String serie = txtSerie.getText();
+            String modelo = txtModelo.getText();
+            String marca = txtMarca.getText();
+            String precio = txtPrecio.getText();
+            String descripcion = txtDescripcion.getText();
+            String stock = txtStock.getText();
+            proDAO = new CProductoDAO(new CProducto(codigo,serie,modelo,marca,precio,tipo,descripcion,stock));
+            model.addColumn("Código");
+            model.addColumn("Serie");
+            model.addColumn("Modelo");
+            model.addColumn("Marca");
+            model.addColumn("Precio");
+            model.addColumn("Tipo");
+            model.addColumn("Descripción");
+            model.addColumn("Stock");
+            tblProducto.setModel(model);
+            tblProducto.setModel(proDAO.buscarTipo((model)));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "INTENTELO DE NUEVO");
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -30,17 +105,16 @@ public class FGestionarProducto extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlProducto = new javax.swing.JPanel();
-        pnlBusqueda = new javax.swing.JPanel();
-        rdNombre = new javax.swing.JRadioButton();
-        rdCodigo = new javax.swing.JRadioButton();
         pnlGT = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cbTipo = new javax.swing.JComboBox<>();
         cbGrupo = new javax.swing.JComboBox<>();
+        btnCodigo = new javax.swing.JButton();
+        btnSerie = new javax.swing.JButton();
         pnlLista = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        dgvDatos = new javax.swing.JTable();
+        tblProducto = new javax.swing.JTable();
         pnlAcciones = new javax.swing.JPanel();
         lblStock = new javax.swing.JLabel();
         lblCodigo = new javax.swing.JLabel();
@@ -58,7 +132,9 @@ public class FGestionarProducto extends javax.swing.JFrame {
         txtMarca = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
-        btnOK = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         pnlOpciones = new javax.swing.JPanel();
         btnNuevo = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -69,45 +145,13 @@ public class FGestionarProducto extends javax.swing.JFrame {
         pnlProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         pnlProducto.setLayout(null);
 
-        pnlBusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modo Búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
-
-        rdNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rdNombre.setText("Nombre");
-
-        rdCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        rdCodigo.setText("Código");
-
-        javax.swing.GroupLayout pnlBusquedaLayout = new javax.swing.GroupLayout(pnlBusqueda);
-        pnlBusqueda.setLayout(pnlBusquedaLayout);
-        pnlBusquedaLayout.setHorizontalGroup(
-            pnlBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBusquedaLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(pnlBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rdNombre)
-                    .addComponent(rdCodigo))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        pnlBusquedaLayout.setVerticalGroup(
-            pnlBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBusquedaLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(rdNombre)
-                .addGap(18, 18, 18)
-                .addComponent(rdCodigo)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        pnlProducto.add(pnlBusqueda);
-        pnlBusqueda.setBounds(16, 30, 140, 130);
-
-        pnlGT.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+        pnlGT.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modo de Búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         pnlGT.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Grupo:");
         pnlGT.add(jLabel1);
-        jLabel1.setBounds(10, 20, 37, 15);
+        jLabel1.setBounds(10, 27, 37, 15);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Tipo:");
@@ -115,17 +159,35 @@ public class FGestionarProducto extends javax.swing.JFrame {
         jLabel2.setBounds(10, 70, 28, 15);
 
         cbTipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoItemStateChanged(evt);
+            }
+        });
         pnlGT.add(cbTipo);
         cbTipo.setBounds(70, 70, 170, 23);
 
         cbGrupo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGrupo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbGrupoItemStateChanged(evt);
+            }
+        });
         pnlGT.add(cbGrupo);
-        cbGrupo.setBounds(70, 20, 170, 23);
+        cbGrupo.setBounds(70, 27, 170, 23);
+
+        btnCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCodigo.setText("Código");
+        pnlGT.add(btnCodigo);
+        btnCodigo.setBounds(290, 30, 80, 23);
+
+        btnSerie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnSerie.setText("Serie");
+        pnlGT.add(btnSerie);
+        btnSerie.setBounds(290, 60, 80, 23);
 
         pnlProducto.add(pnlGT);
-        pnlGT.setBounds(160, 38, 250, 120);
+        pnlGT.setBounds(10, 30, 390, 120);
 
         getContentPane().add(pnlProducto);
         pnlProducto.setBounds(10, 11, 420, 170);
@@ -133,21 +195,21 @@ public class FGestionarProducto extends javax.swing.JFrame {
         pnlLista.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         pnlLista.setLayout(null);
 
-        dgvDatos.setModel(new javax.swing.table.DefaultTableModel(
+        tblProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(dgvDatos);
+        jScrollPane1.setViewportView(tblProducto);
 
         pnlLista.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 560, 200);
+        jScrollPane1.setBounds(10, 0, 570, 220);
 
         getContentPane().add(pnlLista);
         pnlLista.setBounds(10, 190, 580, 220);
@@ -227,9 +289,20 @@ public class FGestionarProducto extends javax.swing.JFrame {
         pnlAcciones.add(txtPrecio);
         txtPrecio.setBounds(90, 180, 160, 21);
 
-        btnOK.setText("OK");
-        pnlAcciones.add(btnOK);
-        btnOK.setBounds(90, 350, 47, 23);
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        btnGuardar.setText("Guardar");
+        pnlAcciones.add(btnGuardar);
+        btnGuardar.setBounds(150, 340, 90, 25);
+
+        btnModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnModificar.setText("Modificar");
+        pnlAcciones.add(btnModificar);
+        btnModificar.setBounds(40, 330, 80, 23);
+
+        btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        pnlAcciones.add(btnEliminar);
+        btnEliminar.setBounds(40, 360, 80, 23);
 
         getContentPane().add(pnlAcciones);
         pnlAcciones.setBounds(600, 10, 260, 400);
@@ -269,6 +342,24 @@ public class FGestionarProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbGrupoItemStateChanged
+        // TODO add your handling code here:
+        String nombre = ""; 
+        cbTipo.removeAllItems(); 
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            nombre = cbGrupo.getSelectedItem().toString();
+            CTipoProductoDAO tip = new CTipoProductoDAO();
+            for (int i = 0; i < tip.mostrarTipo(nombre).size(); i++) {                
+                cbTipo.addItem(tip.mostrarTipo(nombre).get(i).getTipo().toString());
+            }
+        }
+    }//GEN-LAST:event_cbGrupoItemStateChanged
+
+    private void cbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoItemStateChanged
+        // TODO add your handling code here:
+        listadoTipo();
+    }//GEN-LAST:event_cbTipoItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -307,11 +398,14 @@ public class FGestionarProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCodigo;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton btnOK;
+    private javax.swing.JButton btnSerie;
     private javax.swing.JComboBox<String> cbGrupo;
     private javax.swing.JComboBox<String> cbTipo;
-    private javax.swing.JTable dgvDatos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -324,13 +418,11 @@ public class FGestionarProducto extends javax.swing.JFrame {
     private javax.swing.JLabel lblStock;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JPanel pnlAcciones;
-    private javax.swing.JPanel pnlBusqueda;
     private javax.swing.JPanel pnlGT;
     private javax.swing.JPanel pnlLista;
     private javax.swing.JPanel pnlOpciones;
     private javax.swing.JPanel pnlProducto;
-    private javax.swing.JRadioButton rdCodigo;
-    private javax.swing.JRadioButton rdNombre;
+    private javax.swing.JTable tblProducto;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtMarca;
