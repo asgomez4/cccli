@@ -12,7 +12,7 @@ import ec.edu.espe.ingswii.modelo.CCliente;
 
 /**
  *
- * @author Jonathan
+ * @author CRIS
  */
 public class CClienteDAO {
 
@@ -52,13 +52,13 @@ public class CClienteDAO {
                     + "cli_celular,cli_direccion,"
                     + "cli_correo) values (?,?,?,?,?,?,?,?)");
             sentencia.setString(1, cliente.getCedula());
-            sentencia.setString(2, cliente.getApellidop());
-            sentencia.setString(3, cliente.getApellidom());
+            sentencia.setString(2, "");
+            sentencia.setString(3, "");
             sentencia.setString(4, cliente.getNombres());
-            sentencia.setString(5, cliente.getFijo());
-            sentencia.setFloat(6, cliente.getCelular());
-            sentencia.setString(7, cliente.getDireccion());
-            sentencia.setString(8, cliente.getCorreo());
+            sentencia.setFloat(5, 0);
+            sentencia.setFloat(6, 0);
+            sentencia.setString(7, "");
+            sentencia.setString(8, "");
             sentencia.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
