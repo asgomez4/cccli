@@ -206,10 +206,11 @@ public class FGestionarProducto extends javax.swing.JFrame {
 
             }
         ));
+        tblProducto.setEnabled(false);
         jScrollPane1.setViewportView(tblProducto);
 
         pnlLista.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 0, 570, 220);
+        jScrollPane1.setBounds(0, 0, 580, 220);
 
         getContentPane().add(pnlLista);
         pnlLista.setBounds(10, 190, 580, 220);
@@ -357,7 +358,9 @@ public class FGestionarProducto extends javax.swing.JFrame {
 
     private void cbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoItemStateChanged
         // TODO add your handling code here:
-        listadoTipo();
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            listadoTipo();
+        }
     }//GEN-LAST:event_cbTipoItemStateChanged
 
     /**
