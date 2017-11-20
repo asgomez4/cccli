@@ -9,6 +9,7 @@ import ec.edu.espe.ingswii.controlador.CGrupoProductoDAO;
 import ec.edu.espe.ingswii.controlador.CProductoDAO;
 import ec.edu.espe.ingswii.controlador.CTipoProductoDAO;
 import ec.edu.espe.ingswii.modelo.CProducto;
+import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -36,18 +37,18 @@ public class FGestionarProducto extends javax.swing.JFrame {
     }
     public void limpiarDatos() {
         txtCodigo.setText("");
-        txtSerie.setText("");
+        txtModelo.setText("");
     }
     protected final void listadoProductoTotal() {
         String vacio = "";
         DefaultTableModel model = new DefaultTableModel();
         try {
             String codigo = txtCodigo.getText();
-            String serie = txtSerie.getText();
-            String modelo = txtModelo.getText();
-            String marca = txtMarca.getText();
-            String precio = txtPrecio.getText();
-            String tipo = txtTipo.getText();
+            String serie = txtModelo.getText();
+            String modelo = txtMarca.getText();
+            String marca = txtPrecio.getText();
+            String precio = txtTipo.getText();
+            String tipo = txtSerie.getText();
             String descripcion = txtDescripcion.getText();
             String stock = txtStock.getText();
             proDAO = new CProductoDAO(new CProducto(codigo,serie,modelo,marca,precio,tipo,descripcion,stock));
@@ -72,10 +73,10 @@ public class FGestionarProducto extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         try {
             String codigo = txtCodigo.getText();
-            String serie = txtSerie.getText();
-            String modelo = txtModelo.getText();
-            String marca = txtMarca.getText();
-            String precio = txtPrecio.getText();
+            String serie = txtModelo.getText();
+            String modelo = txtMarca.getText();
+            String marca = txtPrecio.getText();
+            String precio = txtTipo.getText();
             String descripcion = txtDescripcion.getText();
             String stock = txtStock.getText();
             proDAO = new CProductoDAO(new CProducto(codigo,serie,modelo,marca,precio,tipo,descripcion,stock));
@@ -94,6 +95,36 @@ public class FGestionarProducto extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
+    public void CargarDatosFila(){
+        int filaseleccionada = tblProducto.getSelectedRow();
+        String codigo = (String)tblProducto.getValueAt(filaseleccionada, 0);
+        String serie = (String)tblProducto.getValueAt(filaseleccionada, 1);
+        String modelo = (String)tblProducto.getValueAt(filaseleccionada, 2);
+        String marca = (String)tblProducto.getValueAt(filaseleccionada, 3);
+        String precio = (String)tblProducto.getValueAt(filaseleccionada, 4);
+        String tipo = (String)tblProducto.getValueAt(filaseleccionada, 5);
+        String descripcion = (String)tblProducto.getValueAt(filaseleccionada, 6);
+        String stock = (String)tblProducto.getValueAt(filaseleccionada, 7);      
+
+        //Volcamos los datos de la tabla en los jTextFields.
+        Object[] vc = new Object[8];
+        vc[0] = codigo;
+        vc[1] = serie;
+        vc[2] = modelo;
+        vc[3] = marca;
+        vc[4] = precio;
+        vc[5] = tipo;
+        vc[6] = descripcion;
+        vc[7] = stock;
+        txtCodigo.setText(String.valueOf(vc[0]));
+        txtSerie.setText(String.valueOf(vc[1]));
+        txtModelo.setText(String.valueOf(vc[2]));
+        txtMarca.setText(String.valueOf(vc[3]));
+        txtPrecio.setText(String.valueOf(vc[4]));
+        txtTipo.setText(String.valueOf(vc[5]));
+        txtDescripcion.setText(String.valueOf(vc[6]));
+        txtStock.setText(String.valueOf(vc[7]));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,7 +141,6 @@ public class FGestionarProducto extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cbTipo = new javax.swing.JComboBox<>();
         cbGrupo = new javax.swing.JComboBox<>();
-        btnCodigo = new javax.swing.JButton();
         btnSerie = new javax.swing.JButton();
         pnlLista = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -126,18 +156,18 @@ public class FGestionarProducto extends javax.swing.JFrame {
         lblDescripcion = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
-        txtTipo = new javax.swing.JTextField();
         txtSerie = new javax.swing.JTextField();
         txtModelo = new javax.swing.JTextField();
         txtMarca = new javax.swing.JTextField();
-        txtStock = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
+        txtStock = new javax.swing.JTextField();
+        txtTipo = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        pnlOpciones = new javax.swing.JPanel();
+        btnCargar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        pnlOpciones = new javax.swing.JPanel();
-        btnNuevo = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -176,21 +206,16 @@ public class FGestionarProducto extends javax.swing.JFrame {
         pnlGT.add(cbGrupo);
         cbGrupo.setBounds(70, 27, 170, 23);
 
-        btnCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCodigo.setText("Código");
-        pnlGT.add(btnCodigo);
-        btnCodigo.setBounds(290, 30, 80, 23);
-
         btnSerie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnSerie.setText("Serie");
         pnlGT.add(btnSerie);
-        btnSerie.setBounds(290, 60, 80, 23);
+        btnSerie.setBounds(260, 50, 80, 23);
 
         pnlProducto.add(pnlGT);
-        pnlGT.setBounds(10, 30, 390, 120);
+        pnlGT.setBounds(10, 30, 360, 120);
 
         getContentPane().add(pnlProducto);
-        pnlProducto.setBounds(10, 11, 420, 170);
+        pnlProducto.setBounds(10, 11, 380, 170);
 
         pnlLista.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         pnlLista.setLayout(null);
@@ -206,7 +231,6 @@ public class FGestionarProducto extends javax.swing.JFrame {
 
             }
         ));
-        tblProducto.setEnabled(false);
         jScrollPane1.setViewportView(tblProducto);
 
         pnlLista.add(jScrollPane1);
@@ -229,27 +253,27 @@ public class FGestionarProducto extends javax.swing.JFrame {
         lblCodigo.setBounds(20, 30, 50, 15);
 
         lblTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblTipo.setText("Tipo:");
+        lblTipo.setText("Serie:");
         pnlAcciones.add(lblTipo);
         lblTipo.setBounds(20, 60, 50, 15);
 
         lblSerie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblSerie.setText("Serie:");
+        lblSerie.setText("Modelo:");
         pnlAcciones.add(lblSerie);
         lblSerie.setBounds(20, 90, 50, 15);
 
         lblModelo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblModelo.setText("Modelo:");
+        lblModelo.setText("Marca:");
         pnlAcciones.add(lblModelo);
         lblModelo.setBounds(20, 120, 50, 15);
 
         lblMarca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblMarca.setText("Marca:");
+        lblMarca.setText("Precio:");
         pnlAcciones.add(lblMarca);
         lblMarca.setBounds(20, 150, 50, 15);
 
         lblPrecio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblPrecio.setText("Precio:");
+        lblPrecio.setText("Tipo:");
         pnlAcciones.add(lblPrecio);
         lblPrecio.setBounds(20, 180, 50, 15);
 
@@ -266,79 +290,68 @@ public class FGestionarProducto extends javax.swing.JFrame {
         pnlAcciones.add(txtCodigo);
         txtCodigo.setBounds(90, 30, 160, 21);
 
-        txtTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        pnlAcciones.add(txtTipo);
-        txtTipo.setBounds(90, 60, 160, 21);
-
         txtSerie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlAcciones.add(txtSerie);
-        txtSerie.setBounds(90, 90, 160, 21);
+        txtSerie.setBounds(90, 60, 160, 21);
 
         txtModelo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlAcciones.add(txtModelo);
-        txtModelo.setBounds(90, 120, 160, 21);
+        txtModelo.setBounds(90, 90, 160, 21);
 
         txtMarca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlAcciones.add(txtMarca);
-        txtMarca.setBounds(90, 150, 160, 21);
+        txtMarca.setBounds(90, 120, 160, 21);
+
+        txtPrecio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pnlAcciones.add(txtPrecio);
+        txtPrecio.setBounds(90, 150, 160, 21);
 
         txtStock.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlAcciones.add(txtStock);
         txtStock.setBounds(90, 300, 90, 21);
 
-        txtPrecio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        pnlAcciones.add(txtPrecio);
-        txtPrecio.setBounds(90, 180, 160, 21);
+        txtTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pnlAcciones.add(txtTipo);
+        txtTipo.setBounds(90, 180, 160, 21);
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btnGuardar.setText("Guardar");
         pnlAcciones.add(btnGuardar);
-        btnGuardar.setBounds(150, 340, 90, 25);
+        btnGuardar.setBounds(40, 350, 90, 25);
 
-        btnModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnModificar.setText("Modificar");
-        pnlAcciones.add(btnModificar);
-        btnModificar.setBounds(40, 330, 80, 23);
-
-        btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnEliminar.setText("Eliminar");
-        pnlAcciones.add(btnEliminar);
-        btnEliminar.setBounds(40, 360, 80, 23);
+        btnVolver.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnVolver.setText("Volver");
+        pnlAcciones.add(btnVolver);
+        btnVolver.setBounds(160, 350, 80, 23);
 
         getContentPane().add(pnlAcciones);
         pnlAcciones.setBounds(600, 10, 260, 400);
 
         pnlOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        pnlOpciones.setLayout(null);
 
-        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnNuevo.setText("Nuevo");
+        btnCargar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCargar.setText("Cargar Fila Seleccionada");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+        pnlOpciones.add(btnCargar);
+        btnCargar.setBounds(20, 30, 161, 40);
 
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCancelar.setText("Volver");
+        btnModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnModificar.setText("Modificar");
+        pnlOpciones.add(btnModificar);
+        btnModificar.setBounds(60, 83, 80, 23);
 
-        javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
-        pnlOpciones.setLayout(pnlOpcionesLayout);
-        pnlOpcionesLayout.setHorizontalGroup(
-            pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
-        );
-        pnlOpcionesLayout.setVerticalGroup(
-            pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlOpcionesLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(btnNuevo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(31, 31, 31))
-        );
+        btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        pnlOpciones.add(btnEliminar);
+        btnEliminar.setBounds(60, 120, 80, 23);
 
         getContentPane().add(pnlOpciones);
-        pnlOpciones.setBounds(440, 10, 150, 170);
+        pnlOpciones.setBounds(400, 10, 190, 170);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -362,6 +375,22 @@ public class FGestionarProducto extends javax.swing.JFrame {
             listadoTipo();
         }
     }//GEN-LAST:event_cbTipoItemStateChanged
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+        int filaseleccionada;
+        try{
+            //Guardamos en un entero la fila seleccionada.
+            filaseleccionada = tblProducto.getSelectedRow();
+            if (filaseleccionada == -1){
+                JOptionPane.showMessageDialog(null, "NO HA SELECCIONADO UNA FILA");
+            } else {                  
+                CargarDatosFila();
+            }
+        }catch (HeadlessException ex){
+            JOptionPane.showMessageDialog(null, "Error: "+ex+"\nInténtelo nuevamente", " .::Error En la Operacion::." ,JOptionPane.ERROR_MESSAGE);
+        }   
+    }//GEN-LAST:event_btnCargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,13 +429,12 @@ public class FGestionarProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCodigo;
+    private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSerie;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbGrupo;
     private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JLabel jLabel1;

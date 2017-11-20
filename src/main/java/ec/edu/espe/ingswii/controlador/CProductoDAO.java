@@ -106,7 +106,7 @@ public class CProductoDAO {
         final Connection con = conexion.getConnection();
         // select de todos los productos y llenado de jtable
         try {
-            sentencia = con.prepareStatement("select * from producto");
+            sentencia = con.prepareStatement("select pro_codigo_cliente, pro_serie, pro_modelo, pro_marca, pro_precio, tip_nombre, pro_descripcion, pro_stock from producto");
             final ResultSet res = sentencia.executeQuery();
             while (res.next()) {
                 pro = new CProducto(res.getString(1), res.getString(2),res.getString(3),res.getString(4),res.getString(5)
@@ -127,7 +127,6 @@ public class CProductoDAO {
             sentencia.setString(1, pro.getProTipo());
             final ResultSet res = sentencia.executeQuery();
             while (res.next()) {
-                
                 pro = new CProducto(res.getString(1), res.getString(2),res.getString(3),res.getString(4),res.getString(5)
                 ,res.getString(6),res.getString(7),res.getString(8));
                 tablaProducto.addRow(new String[]{pro.getProCodigo(), pro.getProSerie(), pro.getProModelo()
