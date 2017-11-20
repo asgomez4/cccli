@@ -523,7 +523,8 @@ public class FProductos extends javax.swing.JFrame {
     private void btnGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarActionPerformed
         // TODO add your handling code here:
         FGestionarProducto obj = new FGestionarProducto();
-        obj.show();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnGestionarActionPerformed
 
     private void cbGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbGrupoItemStateChanged

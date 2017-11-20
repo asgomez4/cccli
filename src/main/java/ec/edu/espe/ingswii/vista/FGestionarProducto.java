@@ -34,21 +34,34 @@ public class FGestionarProducto extends javax.swing.JFrame {
             cbGrupo.addItem(cc.mostrarGrupo().get(i).getGrupo().toString());
         }
         listadoProductoTotal();
+        noEditable();
     }
     public void limpiarDatos() {
         txtCodigo.setText("");
         txtModelo.setText("");
+    }
+    public void noEditable(){
+        txtCodigo.setEditable(false);
+        txtSerie.setEditable(false);txtModelo.setEditable(false);txtMarca.setEditable(false);
+        txtPrecio.setEditable(false);txtTipo.setEditable(false);txtDescripcion.setEditable(false);
+        txtStock.setEditable(false);
+    }
+    public void Limpiar(){
+        txtCodigo.setText("");
+        txtSerie.setText("");txtModelo.setText("");txtMarca.setText("");
+        txtPrecio.setText("");txtTipo.setText("");txtDescripcion.setText("");
+        txtStock.setText("");
     }
     protected final void listadoProductoTotal() {
         String vacio = "";
         DefaultTableModel model = new DefaultTableModel();
         try {
             String codigo = txtCodigo.getText();
-            String serie = txtModelo.getText();
-            String modelo = txtMarca.getText();
-            String marca = txtPrecio.getText();
-            String precio = txtTipo.getText();
-            String tipo = txtSerie.getText();
+            String serie = txtSerie.getText();
+            String modelo = txtModelo.getText();
+            String marca = txtMarca.getText();
+            String precio = txtPrecio.getText();
+            String tipo = txtTipo.getText();
             String descripcion = txtDescripcion.getText();
             String stock = txtStock.getText();
             proDAO = new CProductoDAO(new CProducto(codigo,serie,modelo,marca,precio,tipo,descripcion,stock));
@@ -61,7 +74,7 @@ public class FGestionarProducto extends javax.swing.JFrame {
             model.addColumn("Descripción");
             model.addColumn("Stock");
             tblProducto.setModel(model);
-            tblProducto.setModel(proDAO.visualisarProductosTotal((model)));
+            tblProducto.setModel(proDAO.verProductosTotal((model)));
             limpiarDatos();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "INTENTELO DE NUEVO");
@@ -73,10 +86,10 @@ public class FGestionarProducto extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         try {
             String codigo = txtCodigo.getText();
-            String serie = txtModelo.getText();
-            String modelo = txtMarca.getText();
-            String marca = txtPrecio.getText();
-            String precio = txtTipo.getText();
+            String serie = txtSerie.getText();
+            String modelo = txtModelo.getText();
+            String marca = txtMarca.getText();
+            String precio = txtPrecio.getText();
             String descripcion = txtDescripcion.getText();
             String stock = txtStock.getText();
             proDAO = new CProductoDAO(new CProducto(codigo,serie,modelo,marca,precio,tipo,descripcion,stock));
@@ -162,12 +175,13 @@ public class FGestionarProducto extends javax.swing.JFrame {
         txtPrecio = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
         txtTipo = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
-        btnVolver = new javax.swing.JButton();
-        pnlOpciones = new javax.swing.JPanel();
-        btnCargar = new javax.swing.JButton();
+        btnOK = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        pnlOpciones = new javax.swing.JPanel();
+        btnNuevo = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -245,7 +259,7 @@ public class FGestionarProducto extends javax.swing.JFrame {
         lblStock.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblStock.setText("Stock:");
         pnlAcciones.add(lblStock);
-        lblStock.setBounds(20, 300, 50, 15);
+        lblStock.setBounds(20, 260, 50, 15);
 
         lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblCodigo.setText("Código:");
@@ -284,7 +298,7 @@ public class FGestionarProducto extends javax.swing.JFrame {
 
         txtDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlAcciones.add(txtDescripcion);
-        txtDescripcion.setBounds(90, 210, 160, 80);
+        txtDescripcion.setBounds(90, 210, 160, 40);
 
         txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlAcciones.add(txtCodigo);
@@ -308,21 +322,52 @@ public class FGestionarProducto extends javax.swing.JFrame {
 
         txtStock.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlAcciones.add(txtStock);
-        txtStock.setBounds(90, 300, 90, 21);
+        txtStock.setBounds(90, 260, 90, 21);
 
         txtTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pnlAcciones.add(txtTipo);
         txtTipo.setBounds(90, 180, 160, 21);
 
-        btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        btnGuardar.setText("Guardar");
-        pnlAcciones.add(btnGuardar);
-        btnGuardar.setBounds(40, 350, 90, 25);
+        btnOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnOK.setText("OK");
+        btnOK.setEnabled(false);
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
+        pnlAcciones.add(btnOK);
+        btnOK.setBounds(100, 330, 80, 23);
+
+        btnModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        pnlAcciones.add(btnModificar);
+        btnModificar.setBounds(40, 290, 90, 23);
+
+        btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        pnlAcciones.add(btnEliminar);
+        btnEliminar.setBounds(160, 290, 80, 23);
 
         btnVolver.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
         pnlAcciones.add(btnVolver);
-        btnVolver.setBounds(160, 350, 80, 23);
+        btnVolver.setBounds(100, 370, 80, 23);
 
         getContentPane().add(pnlAcciones);
         pnlAcciones.setBounds(600, 10, 260, 400);
@@ -330,25 +375,25 @@ public class FGestionarProducto extends javax.swing.JFrame {
         pnlOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         pnlOpciones.setLayout(null);
 
+        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+        pnlOpciones.add(btnNuevo);
+        btnNuevo.setBounds(40, 100, 100, 23);
+
         btnCargar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCargar.setText("Cargar Fila Seleccionada");
+        btnCargar.setText("Cargar Fila Selecionada");
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCargarActionPerformed(evt);
             }
         });
         pnlOpciones.add(btnCargar);
-        btnCargar.setBounds(20, 30, 161, 40);
-
-        btnModificar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnModificar.setText("Modificar");
-        pnlOpciones.add(btnModificar);
-        btnModificar.setBounds(60, 83, 80, 23);
-
-        btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnEliminar.setText("Eliminar");
-        pnlOpciones.add(btnEliminar);
-        btnEliminar.setBounds(60, 120, 80, 23);
+        btnCargar.setBounds(15, 50, 160, 23);
 
         getContentPane().add(pnlOpciones);
         pnlOpciones.setBounds(400, 10, 190, 170);
@@ -376,6 +421,23 @@ public class FGestionarProducto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbTipoItemStateChanged
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        if(txtCodigo.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "NO HA CARGADO LOS DATOS DE UN PRODUCTO");
+        }else{
+            txtSerie.setEditable(true);txtModelo.setEditable(true);txtMarca.setEditable(true);
+            txtPrecio.setEditable(true);txtDescripcion.setEditable(true);
+            btnOK.setEnabled(true);
+            btnModificar.setEnabled(false);
+            if(txtSerie.getText().equals("-")){
+                txtStock.setEditable(true);               
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
+
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
         int filaseleccionada;
@@ -384,13 +446,61 @@ public class FGestionarProducto extends javax.swing.JFrame {
             filaseleccionada = tblProducto.getSelectedRow();
             if (filaseleccionada == -1){
                 JOptionPane.showMessageDialog(null, "NO HA SELECCIONADO UNA FILA");
-            } else {                  
+            } else {
                 CargarDatosFila();
+                noEditable();
             }
         }catch (HeadlessException ex){
-            JOptionPane.showMessageDialog(null, "Error: "+ex+"\nInténtelo nuevamente", " .::Error En la Operacion::." ,JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "INTENTALO NUEVAMENTE", "ERROR", JOptionPane.ERROR_MESSAGE); 
         }   
     }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:        
+        cbTipo.setSelectedIndex(0);
+        cbGrupo.setSelectedIndex(0);
+        CGrupoProductoDAO cc = new CGrupoProductoDAO();
+        for (int i = 0; i < cc.mostrarGrupo().size(); i++) {
+            cbGrupo.addItem(cc.mostrarGrupo().get(i).getGrupo().toString());
+        }
+        Limpiar();
+        listadoProductoTotal();
+        noEditable();
+        btnModificar.setEnabled(true);
+        btnOK.setEnabled(false);
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if(txtCodigo.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "NO HA CARGADO LOS DATOS DE UN PRODUCTO");
+        }else{
+            noEditable();
+            int confirmar = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ELIMINAR EL PRODUCTO?");
+            if (JOptionPane.OK_OPTION == confirmar) {
+                int exito =  proDAO.eliminarProducto(txtCodigo.getText());
+                Limpiar();
+                listadoProductoTotal();                
+                if(exito>0){
+                    JOptionPane.showMessageDialog(null, "PRODUCTO ELIMINADO ","ÉXITO", JOptionPane.INFORMATION_MESSAGE);         
+                    
+                }
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+         proDAO.modificarProducto(txtCodigo.getText(),txtSerie.getText(),txtModelo.getText(),txtMarca.getText(),
+                 txtPrecio.getText(),txtTipo.getText(),txtDescripcion.getText(),txtStock.getText());
+    }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        FProductos obj = new FProductos();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,8 +541,9 @@ public class FGestionarProducto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnOK;
     private javax.swing.JButton btnSerie;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbGrupo;

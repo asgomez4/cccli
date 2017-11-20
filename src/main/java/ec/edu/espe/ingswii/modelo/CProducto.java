@@ -27,7 +27,7 @@ public class CProducto {
      * Constructores
      */
     public CProducto(){ 
-    }
+    }   
 
     public CProducto(String proCodigo, String proSerie, String proModelo, String proMarca, String proPrecio, String proTipo, String proDescripcion, String proStock){
         this.proCodigo = proCodigo;

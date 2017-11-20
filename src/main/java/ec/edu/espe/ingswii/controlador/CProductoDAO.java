@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -101,7 +102,7 @@ public class CProductoDAO {
         }
         return resultado;
     }
-    public final DefaultTableModel visualisarProductosTotal(final DefaultTableModel tablaProducto) {
+    public final DefaultTableModel verProductosTotal(final DefaultTableModel tablaProducto) {
         PreparedStatement sentencia = null;
         final Connection con = conexion.getConnection();
         // select de todos los productos y llenado de jtable
@@ -123,7 +124,7 @@ public class CProductoDAO {
         PreparedStatement sentencia = null;
         final Connection con = conexion.getConnection();
         try {
-            sentencia = con.prepareStatement("select * from producto where tip_nombre=?");
+            sentencia = con.prepareStatement("select pro_codigo_cliente, pro_serie, pro_modelo, pro_marca, pro_precio, tip_nombre, pro_descripcion, pro_stock from producto where tip_nombre=?");
             sentencia.setString(1, pro.getProTipo());
             final ResultSet res = sentencia.executeQuery();
             while (res.next()) {
@@ -138,6 +139,51 @@ public class CProductoDAO {
         }
         return tablaProducto;
     }
-
-    //Validar si existe serie    
+    public final int eliminarProducto(String codigo) {
+        int resultado = 0;
+        PreparedStatement sentencia = null;
+        final Connection con = conexion.getConnection();
+        // insertar los datos del cliente dentro de la BD
+        try {
+            sentencia = con.prepareStatement("DELETE FROM producto WHERE pro_codigo_cliente = ?");
+            sentencia.setString(1, codigo);
+            final int respuesta = sentencia.executeUpdate();            
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+        }
+        return resultado;
+    }
+    public void modificarProducto(String codigo, String serie, String modelo, String marca, String precio, String tipo, String descripcion, String stock){
+        int confirmar = JOptionPane.showConfirmDialog(null, "¿Desea modificar los datos actuales?");
+        if(confirmar == JOptionPane.YES_OPTION){
+            try {    
+                String sql = "UPDATE producto SET pro_serie=?, pro_modelo=?, pro_marca=?, pro_precio=?, tip_nombre=?, pro_descripcion=?, pro_stock=? "
+                    + "WHERE pro_codigo_cliente=?";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, codigo);
+                ps.setString(2, serie);
+                ps.setString(3, modelo);
+                ps.setString(4, marca);
+                ps.setString(5, precio);
+                ps.setString(6, tipo);
+                ps.setString(7, descripcion);
+                ps.setString(8, stock);        
+                if(ps.executeUpdate() > 0){        
+                    JOptionPane.showMessageDialog(null, "Los datos han sido modificados con éxito", "Operación Exitosa", 
+                                          JOptionPane.INFORMATION_MESSAGE);
+            
+                }else{        
+                    JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
+                                          + "Inténtelo nuevamente.", "Error en la operación", 
+                                          JOptionPane.ERROR_MESSAGE);       
+                }        
+            } catch (SQLException e) {    
+                    JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
+                                          + "Inténtelo nuevamente.\n"
+                                          + "Error: "+e, "Error en la operación", 
+                                          JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
 }
