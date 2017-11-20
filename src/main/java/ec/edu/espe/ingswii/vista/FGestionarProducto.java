@@ -178,6 +178,7 @@ public class FGestionarProducto extends javax.swing.JFrame {
         btnOK = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnMenu = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         pnlOpciones = new javax.swing.JPanel();
         btnNuevo = new javax.swing.JButton();
@@ -385,7 +386,17 @@ public class FGestionarProducto extends javax.swing.JFrame {
             }
         });
         pnlAcciones.add(btnEliminar);
-        btnEliminar.setBounds(160, 290, 80, 23);
+        btnEliminar.setBounds(150, 290, 90, 23);
+
+        btnMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnMenu.setText("Menú P.");
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        pnlAcciones.add(btnMenu);
+        btnMenu.setBounds(150, 370, 90, 23);
 
         btnVolver.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnVolver.setText("Volver");
@@ -395,7 +406,7 @@ public class FGestionarProducto extends javax.swing.JFrame {
             }
         });
         pnlAcciones.add(btnVolver);
-        btnVolver.setBounds(100, 370, 80, 23);
+        btnVolver.setBounds(40, 370, 90, 23);
 
         getContentPane().add(pnlAcciones);
         pnlAcciones.setBounds(600, 10, 260, 400);
@@ -458,16 +469,18 @@ public class FGestionarProducto extends javax.swing.JFrame {
             txtPrecio.setEditable(true);txtDescripcion.setEditable(true);
             btnOK.setEnabled(true);
             btnModificar.setEnabled(false);
+            
             if(txtSerie.getText().equals("-")){
                 txtStock.setEditable(true);               
-            }
-            
-        }
-        
+            }            
+        }        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
+        noEditable();
+        btnModificar.setEnabled(true);
+        btnOK.setEnabled(false);
         int filaseleccionada;
         try{
             //Guardamos en un entero la fila seleccionada.
@@ -475,8 +488,7 @@ public class FGestionarProducto extends javax.swing.JFrame {
             if (filaseleccionada == -1){
                 JOptionPane.showMessageDialog(null, "NO HA SELECCIONADO UNA FILA");
             } else {
-                CargarDatosFila();
-                noEditable();
+                CargarDatosFila();                
             }
         }catch (HeadlessException ex){
             JOptionPane.showMessageDialog(null, "INTENTALO NUEVAMENTE", "ERROR", JOptionPane.ERROR_MESSAGE); 
@@ -518,17 +530,21 @@ public class FGestionarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        // TODO add your handling code here:
-         proDAO.modificarProducto(txtCodigo.getText(),txtSerie.getText(),txtModelo.getText(),txtMarca.getText(),
-                 txtPrecio.getText(),txtTipo.getText(),txtDescripcion.getText(),txtStock.getText());
+        // TODO add your handling code here:        
+        int aux = proDAO.actualizarProducto(txtCodigo.getText(), txtSerie.getText(), txtModelo.getText(), txtMarca.getText(), txtPrecio.getText(), txtDescripcion.getText(),txtStock.getText());
+        Limpiar();
+        if (aux > 0){
+            JOptionPane.showMessageDialog(null, "PRODUCTO MODIFICADO");          
+        } 
+        listadoProductoTotal();
     }//GEN-LAST:event_btnOKActionPerformed
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
-        FProductos obj = new FProductos();
+        FMenu obj = new FMenu();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnVolverActionPerformed
+    }//GEN-LAST:event_btnMenuActionPerformed
 
     private void txtSerieKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSerieKeyReleased
         // TODO add your handling code here:
@@ -565,6 +581,13 @@ public class FGestionarProducto extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        FProductos obj = new FProductos();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -605,6 +628,7 @@ public class FGestionarProducto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnOK;

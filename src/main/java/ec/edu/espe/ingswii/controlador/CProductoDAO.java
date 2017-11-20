@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -153,37 +152,21 @@ public class CProductoDAO {
         }
         return resultado;
     }
-    public void modificarProducto(String codigo, String serie, String modelo, String marca, String precio, String tipo, String descripcion, String stock){
-        int confirmar = JOptionPane.showConfirmDialog(null, "¿Desea modificar los datos actuales?");
-        if(confirmar == JOptionPane.YES_OPTION){
-            try {    
-                String sql = "UPDATE producto SET pro_serie=?, pro_modelo=?, pro_marca=?, pro_precio=?, tip_nombre=?, pro_descripcion=?, pro_stock=? "
-                    + "WHERE pro_codigo_cliente=?";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, codigo);
-                ps.setString(2, serie);
-                ps.setString(3, modelo);
-                ps.setString(4, marca);
-                ps.setString(5, precio);
-                ps.setString(6, tipo);
-                ps.setString(7, descripcion);
-                ps.setString(8, stock);        
-                if(ps.executeUpdate() > 0){        
-                    JOptionPane.showMessageDialog(null, "Los datos han sido modificados con éxito", "Operación Exitosa", 
-                                          JOptionPane.INFORMATION_MESSAGE);
-            
-                }else{        
-                    JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
-                                          + "Inténtelo nuevamente.", "Error en la operación", 
-                                          JOptionPane.ERROR_MESSAGE);       
-                }        
-            } catch (SQLException e) {    
-                    JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
-                                          + "Inténtelo nuevamente.\n"
-                                          + "Error: "+e, "Error en la operación", 
-                                          JOptionPane.ERROR_MESSAGE);
+    public final int actualizarProducto(String proCodigo, String proSerie, String proModelo, String proMarca, String proPrecio, String proDescripcion, String proStock) {
+        int resultado = 0;
+        PreparedStatement sentencia = null;
+        final Connection con = conexion.getConnection();
+        // update del cliente dentro de la BD
+        try {
+            sentencia = con.prepareStatement("Update producto set pro_serie='" + proSerie + "', pro_modelo='" + proModelo + "', pro_marca='" + proMarca + "', pro_precio='" +proPrecio + "', pro_descripcion='" + proDescripcion + "',pro_stock='" + proStock + "' where pro_codigo_cliente='" + proCodigo + "'");
+            final int respuesta = sentencia.executeUpdate();
+            if (respuesta > 0) {
+                JOptionPane.showMessageDialog(null, "PRODUCTO MODIFICADO");
             }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
         }
-    }
+        return resultado;
+    }   
     
 }

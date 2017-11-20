@@ -28,7 +28,10 @@ public class CProducto {
      */
     public CProducto(){ 
     }   
-
+    public CProducto(String proCodigo,String proPrecio){
+        this.proCodigo = proCodigo;
+        this.proPrecio = proPrecio;
+    }
     public CProducto(String proCodigo, String proSerie, String proModelo, String proMarca, String proPrecio, String proTipo, String proDescripcion, String proStock){
         this.proCodigo = proCodigo;
         this.proSerie = proSerie;
