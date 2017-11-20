@@ -297,6 +297,11 @@ public class FGestionarProducto extends javax.swing.JFrame {
         lblDescripcion.setBounds(20, 210, 70, 15);
 
         txtDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyReleased(evt);
+            }
+        });
         pnlAcciones.add(txtDescripcion);
         txtDescripcion.setBounds(90, 210, 160, 40);
 
@@ -305,18 +310,41 @@ public class FGestionarProducto extends javax.swing.JFrame {
         txtCodigo.setBounds(90, 30, 160, 21);
 
         txtSerie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtSerie.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSerieKeyReleased(evt);
+            }
+        });
         pnlAcciones.add(txtSerie);
         txtSerie.setBounds(90, 60, 160, 21);
 
         txtModelo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtModeloKeyReleased(evt);
+            }
+        });
         pnlAcciones.add(txtModelo);
         txtModelo.setBounds(90, 90, 160, 21);
 
         txtMarca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyTyped(evt);
+            }
+        });
         pnlAcciones.add(txtMarca);
         txtMarca.setBounds(90, 120, 160, 21);
 
         txtPrecio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
         pnlAcciones.add(txtPrecio);
         txtPrecio.setBounds(90, 150, 160, 21);
 
@@ -501,6 +529,42 @@ public class FGestionarProducto extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void txtSerieKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSerieKeyReleased
+        // TODO add your handling code here:
+        txtSerie.setText(txtSerie.getText().toUpperCase());
+    }//GEN-LAST:event_txtSerieKeyReleased
+
+    private void txtModeloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyReleased
+        // TODO add your handling code here:
+        txtModelo.setText(txtModelo.getText().toUpperCase());
+    }//GEN-LAST:event_txtModeloKeyReleased
+
+    private void txtMarcaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyReleased
+        // TODO add your handling code here:
+        txtMarca.setText(txtMarca.getText().toUpperCase());
+    }//GEN-LAST:event_txtMarcaKeyReleased
+
+    private void txtDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyReleased
+        // TODO add your handling code here:
+        txtDescripcion.setText(txtDescripcion.getText().toUpperCase());
+    }//GEN-LAST:event_txtDescripcionKeyReleased
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if((c<'a'||c>'z')&&(c<'A'||c>'Z')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMarcaKeyTyped
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(c<'0'||c>'9'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrecioKeyTyped
 
     /**
      * @param args the command line arguments
